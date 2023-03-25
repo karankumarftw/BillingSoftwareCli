@@ -1,0 +1,1 @@
+product create 1,hamam,soap,packet,32
