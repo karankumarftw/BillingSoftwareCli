@@ -89,6 +89,13 @@ public class Product {
 
     public static void count() throws SQLException {
         System.out.println("Product count");
+        DbConnection.query = "select * from products";
+        DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+        int count = 0;
+        while(DbConnection.resultSet.next()){
+            count+=1;
+        }
+        System.out.println("Total count of the product : " + count);
         Operation.getCommand();
     }
 
