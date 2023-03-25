@@ -1,3 +1,4 @@
+
 import java.sql.SQLException;
 
 public class Product {
@@ -104,8 +105,21 @@ public class Product {
         Operation.getCommand();
     }
 
-    public static void delete() throws SQLException {
-        System.out.println("product delete");
+    public static void delete(String code) throws SQLException {
+        System.out.println("Are you sure want to delete the product ? y/n");
+        String choice = DbConnection.scanner.nextLine();
+        if(choice.equalsIgnoreCase("yes")|| choice.equalsIgnoreCase("y")) {
+            try {
+
+                DbConnection.query = "delete from products where code = '" + code + "'";
+                DbConnection.statement.execute(DbConnection.query);
+                System.out.println("Product deleted successfully");
+            } catch (Exception e) {
+                System.out.println("product doesn't exist");
+            }
+        }
+
+
         Operation.getCommand();
     }
 
