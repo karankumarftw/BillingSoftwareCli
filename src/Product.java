@@ -128,8 +128,15 @@ public class Product {
         Operation.getCommand();
     }
 
-    public static void listWithTypes() throws SQLException {
-        System.out.println("product list with types");
+    public static void listWithTypes(String type) throws SQLException {
+        System.out.println("product list with "+type+"");
+        DbConnection.query = "select * from products where type = '"+type+"'";
+        DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+
+        while(DbConnection.resultSet.next()){
+            System.out.println(DbConnection.resultSet.getString("name"));
+            System.out.println(DbConnection.resultSet.getString("type"));
+        }
         Operation.getCommand();
     }
 }
