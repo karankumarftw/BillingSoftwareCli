@@ -8,7 +8,10 @@ public class DbConnection {
 
     static {
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost/superMarket","postgres","postgres");
+            String url = "jdbc:postgresql://floppy.db.elephantsql.com/wfnutumw";
+            String database= "wfnutumw";
+            String password = "lA0jRiDGKCozUBNZyrvCKr76BpP3HM8Q";
+            connection = DriverManager.getConnection(url,database,password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
