@@ -139,4 +139,26 @@ public class Product {
         }
         Operation.getCommand();
     }
+    public static void listWithTypesAndPaging(String type,String limitItems,String page) throws SQLException {
+        System.out.println("product list with "+type+"");
+        DbConnection.query = "select * from products where type = '"+type+"'";
+        //product list -s type: chocolate -p 5 2
+        DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+        int pageLimit = Integer.parseInt(limitItems);
+        int pageNo = Integer.parseInt(page);
+        int tempEndItemNo = pageLimit*pageNo;
+        int tempInitialItemNo = tempEndItemNo-pageLimit;
+
+        int tempItemsCount = 1;
+        while(DbConnection.resultSet.next()){
+            tempItemsCount +=1;
+
+            if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
+                System.out.println(DbConnection.resultSet.getString("code")+"       "+DbConnection.resultSet.getString("name"));
+            }
+
+
+        }
+        Operation.getCommand();
+    }
 }

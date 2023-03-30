@@ -76,7 +76,13 @@ public class Operation {
                 } else if (cmdBySpaceAndComma[1].equals("edit")) {
                     Product.editWithAttributes();
                 } else if (cmdBySpaceAndComma[1].equals("list")) {
-                    Product.listWithTypes(cmdBySpaceAndComma[4]);
+                    try{
+                        Product.listWithTypesAndPaging(cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
+                    }
+                    catch (Exception e){
+                        Product.listWithTypes(cmdBySpaceAndComma[4]);
+                    }
+
                 }
 
             }
