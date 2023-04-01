@@ -33,6 +33,9 @@ public class Operation {
                     case "edit":
                         Product.edit();
                         break;
+                    case "list":
+                        Product.listDefault();
+                        break;
                 }
             }
         }
@@ -74,14 +77,25 @@ public class Operation {
                 else if (cmdBySpaceAndComma[1].equals("delete")) {
                     Product.delete(cmdBySpaceAndComma[2]);
                 } else if (cmdBySpaceAndComma[1].equals("edit")) {
+                    System.out.println("entered into product edit section ");
                     Product.editWithAttributes();
-                } else if (cmdBySpaceAndComma[1].equals("list")) {
+                } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-s")) {
+                    System.out.println("Entered into list section");
                     try{
-                        Product.listWithTypesAndPaging(cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
+                        Product.listWithAttributesAndPaging(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
                     }
                     catch (Exception e){
-                        Product.listWithTypes(cmdBySpaceAndComma[4]);
+                        Product.listWithAttributes(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
                     }
+
+                } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-p")) {
+                    try{
+                        Product.listDefaultWithListCountAndPageNo(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
+                    }
+                    catch (Exception e){
+                        Product.listDefaultWithListCount(cmdBySpaceAndComma[3]);
+                    }
+
 
                 }
 

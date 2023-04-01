@@ -128,9 +128,9 @@ public class Product {
         Operation.getCommand();
     }
 
-    public static void listWithTypes(String type) throws SQLException {
-        System.out.println("product list with "+type+"");
-        DbConnection.query = "select * from products where type = '"+type+"'";
+    public static void listWithAttributes(String attribute,String searchText) throws SQLException {
+        System.out.println("product list with "+searchText+"\nlist with attr");
+        DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"'";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
 
         while(DbConnection.resultSet.next()){
@@ -139,9 +139,9 @@ public class Product {
         }
         Operation.getCommand();
     }
-    public static void listWithTypesAndPaging(String type,String limitItems,String page) throws SQLException {
-        System.out.println("product list with "+type+"");
-        DbConnection.query = "select * from products where type = '"+type+"'";
+    public static void listWithAttributesAndPaging(String attribute,String searchText,String limitItems,String page) throws SQLException {
+        System.out.println("product list with "+searchText+"\nlist with attr and paging");
+        DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"'";
         //product list -s type: chocolate -p 5 2
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int pageLimit = Integer.parseInt(limitItems);
@@ -160,5 +160,49 @@ public class Product {
 
         }
         Operation.getCommand();
+    }
+
+    public static void listDefault() throws SQLException {
+        DbConnection.query = "select * from products";
+        DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+        int tempItemsCount = 1;
+        while(DbConnection.resultSet.next()){
+            if(tempItemsCount<=20){
+                tempItemsCount+=1;
+                System.out.println(DbConnection.resultSet.getString("name")+"   "+DbConnection.resultSet.getString("code"));
+            }
+
+        }
+    }
+
+    public static void listDefaultWithListCount(String defaultItemCount) throws SQLException {
+        DbConnection.query = "select * from products";
+        DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+        int tempItemsCount = 1;
+        while(DbConnection.resultSet.next()){
+            if(tempItemsCount<=Integer.parseInt(defaultItemCount)){
+                tempItemsCount+=1;
+                System.out.println(DbConnection.resultSet.getString("name")+"   "+DbConnection.resultSet.getString("code"));
+            }
+
+        }
+    }
+
+    public static void listDefaultWithListCountAndPageNo(String limitItems,String page) throws SQLException {
+        DbConnection.query = "select * from products";
+        DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+        int pageLimit = Integer.parseInt(limitItems);
+        int pageNo = Integer.parseInt(page);
+        int tempEndItemNo = pageLimit*pageNo;
+        int tempInitialItemNo = tempEndItemNo-pageLimit;
+
+        int tempItemsCount = 1;
+        while(DbConnection.resultSet.next()){
+            tempItemsCount +=1;
+
+            if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
+                System.out.println(DbConnection.resultSet.getString("code")+"       "+DbConnection.resultSet.getString("name"));
+            }
+        }
     }
 }

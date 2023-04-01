@@ -1,3 +1,3 @@
 product create 1,hamam,soap,packet,32
 
-product list -s type: soap -p 5 2
+product list -s type soap -p 5 2
