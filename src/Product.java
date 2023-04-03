@@ -49,6 +49,26 @@ public class Product {
                 "\tstock - number, default 0");
         Operation.getCommand();
     }
+    public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice,String tempStock) throws SQLException {
+        System.out.println("product edit with attributes");
+        float price = Float.parseFloat(tempPrice);
+        float stock = Float.parseFloat(tempStock);
+        //update products set name = 'GoldWinner',unit = 'Packet',type='OIL',price = '34',stock='500' where code = '3';
+        DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
+        DbConnection.statement.execute(DbConnection.query);
+        System.out.println("Product edited successfully !!!");
+        Operation.getCommand();
+    }
+    public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice) throws SQLException {
+        System.out.println("product edit with attributes");
+        float price = Float.parseFloat(tempPrice);
+
+        //update products set name = 'GoldWinner',unit = 'Packet',type='OIL',price = '34',stock='500' where code = '3';
+        DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+" where code = "+code+" and ( code = "+code+")";
+        DbConnection.statement.execute(DbConnection.query);
+        System.out.println("Product edited successfully !!!");
+        Operation.getCommand();
+    }
 
     public static void listHelp() throws SQLException {
         System.out.println("List product with the following options\n" +
@@ -101,7 +121,29 @@ public class Product {
     }
 
     public static void edit() throws SQLException {
-        System.out.println("product edit");
+        System.out.println("Entered into product edit");
+        System.out.print("code : ");
+        String code = DbConnection.scanner.nextLine();
+        System.out.print("name : ");
+        String name = DbConnection.scanner.nextLine();
+        System.out.print("unit : ");
+        String unit = DbConnection.scanner.nextLine();
+        System.out.print("type : ");
+        String type = DbConnection.scanner.nextLine();
+        System.out.print("price : ");
+        String price = DbConnection.scanner.nextLine();
+        System.out.print("If no stock just leave it and press Enter");
+        System.out.print("Stock : ");
+        String stock = DbConnection.scanner.nextLine();
+        if(stock.isEmpty()){
+            DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+" where code = "+code+" and ( code = "+code+")";
+            DbConnection.statement.execute(DbConnection.query);
+        }else{
+            DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
+            DbConnection.statement.execute(DbConnection.query);
+        }
+
+        System.out.println("Product edited successfully");
         Operation.getCommand();
     }
 
@@ -123,14 +165,11 @@ public class Product {
         Operation.getCommand();
     }
 
-    public static void editWithAttributes() throws SQLException {
-        System.out.println("product edit with attributes");
-        Operation.getCommand();
-    }
+
 
     public static void listWithAttributes(String attribute,String searchText) throws SQLException {
         System.out.println("product list with "+searchText+"\nlist with attr");
-        DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"'";
+        DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
         while(DbConnection.resultSet.next()){
@@ -147,7 +186,7 @@ public class Product {
     }
     public static void listWithAttributesAndPaging(String attribute,String searchText,String limitItems,String page) throws SQLException {
         System.out.println("product list with "+searchText+"\nlist with attr and paging");
-        DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"'";
+        DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc";
         //product list -s type: chocolate -p 5 2
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int pageLimit = Integer.parseInt(limitItems);
@@ -176,7 +215,7 @@ public class Product {
     }
 
     public static void listDefault() throws SQLException {
-        DbConnection.query = "select * from products";
+        DbConnection.query = "select * from products order by code asc";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int tempItemsCount = 1;
         System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
@@ -196,7 +235,7 @@ public class Product {
     }
 
     public static void listDefaultWithListCount(String defaultItemCount) throws SQLException {
-        DbConnection.query = "select * from products";
+        DbConnection.query = "select * from products order by code asc";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int tempItemsCount = 1;
         System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
@@ -216,7 +255,7 @@ public class Product {
     }
 
     public static void listDefaultWithListCountAndPageNo(String limitItems,String page) throws SQLException {
-        DbConnection.query = "select * from products";
+        DbConnection.query = "select * from products order by code asc";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int pageLimit = Integer.parseInt(limitItems);
         int pageNo = Integer.parseInt(page);

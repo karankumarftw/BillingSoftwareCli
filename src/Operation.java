@@ -78,7 +78,14 @@ public class Operation {
                     Product.delete(cmdBySpaceAndComma[2]);
                 } else if (cmdBySpaceAndComma[1].equals("edit")) {
                     System.out.println("entered into product edit section ");
-                    Product.editWithAttributes();
+                    try{
+                        Product.editWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
+                    }
+                    catch (Exception e){
+                        Product.editWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6]);
+                    }
+
+
                 } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-s")) {
                     System.out.println("Entered into list section");
                     try{
