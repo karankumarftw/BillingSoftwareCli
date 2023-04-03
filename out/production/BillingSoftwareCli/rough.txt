@@ -1,3 +1,7 @@
-product create 1,hamam,soap,packet,32
+product create 1,hamam,packet,soap,32
 
 product list -s type soap -p 5 2
+
+product edit 5,pencil,Stationary,piece,5,1000
+
+product edit 610,karan,34,burnie,5671,100

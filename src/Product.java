@@ -1,23 +1,93 @@
 
+import javax.management.StandardEmitterMBean;
 import java.sql.SQLException;
 
 public class Product {
     public static void createWithAttributes(String code,String name,String unit,String type, String price) throws SQLException {
-        System.out.println("product create With Attributes");
-        DbConnection.query = "insert into products(code,name,unit,type,price) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+price+"')";
+        //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
+        if(code.length()<2&&code.length()>7){
+            System.out.println("code length should be within 2 to 6 characters");
+            Operation.getCommand();
+        }
+        System.out.println(code.length()+"  "+name.length()+"   "+unit);
+        if(name.length()<3||name.length()>30){
+            System.out.println("name length should be within 3 to 30 characters");
+            Operation.getCommand();
+        }
+        boolean isUnitIsThere = false;
+        for(int i = 0;i<DbConnection.unittypes.length;i++){
+            System.out.println(i);
+            if(DbConnection.unittypes[i].equals(unit)){
+                isUnitIsThere = true;
+            }
+        }
+        if(!isUnitIsThere){
+            System.out.println("The Unit value is not matching as per pre defined units");
+            Operation.getCommand();
+        }
+
+        float parsingPrice = 0;
+        try{
+            parsingPrice = Float.parseFloat(price);
+        }
+        catch (Exception e){
+            System.out.println("The price should be numeric");
+        }
+        if(price.length()<1){
+            System.out.println("Price data cannot be null");
+            Operation.getCommand();
+        }
+//------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
+
+
+        DbConnection.query = "insert into products(code,name,unit,type,price) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"')";
         DbConnection.statement.execute(DbConnection.query);
         System.out.println("Product inserted successfully");
         Operation.getCommand();
     }
+
     public static void createWithAttributes(String code,String name,String unit,String type, String price,String stock) throws SQLException {
-        System.out.println("product create With Attributes");
-        DbConnection.query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+price+"','"+stock+"')";
+        //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
+        if(code.length()<2||code.length()>7){
+            System.out.println("code length should be within 2 to 6 characters");
+            Operation.getCommand();
+        }
+        if(name.length()<3||name.length()>30){
+            System.out.println("name length should be within 3 to 30 characters");
+            Operation.getCommand();
+        }
+        boolean isUnitIsThere = false;
+        for(int i = 0;i<DbConnection.unittypes.length;i++){
+            System.out.println(i);
+            if(DbConnection.unittypes[i].equals(unit)){
+                isUnitIsThere = true;
+            }
+        }
+
+        if(isUnitIsThere){
+            System.out.println("The Unit value is not matching as per pre defined units");
+            Operation.getCommand();
+        }
+        float parsingPrice = 0;
+        try{
+            parsingPrice = Float.parseFloat(price);
+        }
+        catch (Exception e){
+            System.out.println("The price should be numeric");
+        }
+        if(price.length()<1){
+            System.out.println("Price data cannot be null");
+            Operation.getCommand();
+        }
+//------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
+        DbConnection.query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"','"+stock+"')";
         DbConnection.statement.execute(DbConnection.query);
         System.out.println("Product inserted successfully");
         Operation.getCommand();
     }
+
     public static void create() throws SQLException {
-        System.out.println("PRODUCT CREATION");
+       //-------------------------GETTING INPUTS FOR PRODUCT CREATION ----------------------------------------------//
         System.out.print("code : ");
         String code = DbConnection.scanner.nextLine();
         System.out.print("name : ");
@@ -31,12 +101,49 @@ public class Product {
         System.out.println("If no stock just leave it and press Enter");
         System.out.println("Stock : ");
         String stock = DbConnection.scanner.nextLine();
-        DbConnection.query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+price+"','"+stock+"')";
+        //------------------------- GETTING INPUTS FOR PRODUCT CREATION ENDS ----------------------------------------------//
+        //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
+        if(code.length()<2||code.length()>7){
+            System.out.println("code length should be within 2 to 6 characters");
+            Operation.getCommand();
+        }
+        if(name.length()<3||name.length()>30){
+            System.out.println("name length should be within 3 to 30 characters");
+            Operation.getCommand();
+        }
+        boolean isUnitIsThere = false;
+        for(int i = 0;i<DbConnection.unittypes.length;i++){
+            System.out.println(i);
+            if(DbConnection.unittypes[i].equals(unit)){
+                isUnitIsThere = true;
+            }
+        }
+
+        if(isUnitIsThere){
+            System.out.println("The Unit value is not matching as per pre defined units");
+            Operation.getCommand();
+        }
+        float parsingPrice = 0;
+        try{
+            parsingPrice = Float.parseFloat(price);
+        }
+        catch (Exception e){
+            System.out.println("The price should be numeric");
+        }
+        if(price.length()<1){
+            System.out.println("Price data cannot be null");
+            Operation.getCommand();
+        }
+
+//------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
+
+        DbConnection.query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"','"+stock+"')";
         DbConnection.statement.execute(DbConnection.query);
         System.out.println("Product inserted successfully");
 
         Operation.getCommand();
     }
+
     public static void productCreateHelp() throws SQLException {
         System.out.println("create product using the following template\n" +
                 ">> code, name, unit, type, price, stock\n" +
@@ -49,29 +156,87 @@ public class Product {
                 "\tstock - number, default 0");
         Operation.getCommand();
     }
+
     public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice,String tempStock) throws SQLException {
-        System.out.println("product edit with attributes");
-        float price = Float.parseFloat(tempPrice);
+//------------------------------------------- VALIDATION -----------------------------------------------------------------------------//
+        if(name.length()<3||name.length()>30){
+            System.out.println("name length should be within 3 to 30 characters");
+            Operation.getCommand();
+        }
+        boolean isUnitIsThere = false;
+        for(int i = 0;i<DbConnection.unittypes.length;i++){
+            System.out.println(i);
+            if(DbConnection.unittypes[i].equals(unit)){
+                isUnitIsThere = true;
+            }
+        }
+        if(!isUnitIsThere){
+            System.out.println("The Unit value is not matching as per pre defined units");
+            Operation.getCommand();
+        }
+        float parsingPrice = 0;
+        try{
+            parsingPrice = Float.parseFloat(tempPrice);
+        }
+        catch (Exception e){
+            System.out.println("The price should be numeric");
+        }
+        if(tempPrice.length()<1){
+            System.out.println("Price data cannot be null");
+            Operation.getCommand();
+        }
+
+
+
         float stock = Float.parseFloat(tempStock);
-        //update products set name = 'GoldWinner',unit = 'Packet',type='OIL',price = '34',stock='500' where code = '3';
-        DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
+        //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
+        DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
         DbConnection.statement.execute(DbConnection.query);
         System.out.println("Product edited successfully !!!");
         Operation.getCommand();
     }
+
     public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice) throws SQLException {
-        System.out.println("product edit with attributes");
-        float price = Float.parseFloat(tempPrice);
+        //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
+        if(name.length()<3||name.length()>30){
+            System.out.println("name length should be within 3 to 30 characters");
+            Operation.getCommand();
+        }
+        boolean isUnitIsThere = false;
+        for(int i = 0;i<DbConnection.unittypes.length;i++){
+            System.out.println(i);
+            if(DbConnection.unittypes[i].equals(unit)){
+                isUnitIsThere = true;
+            }
+        }
+        if(!isUnitIsThere){
+            System.out.println("The Unit value is not matching as per pre defined units");
+            Operation.getCommand();
+        }
+
+        float parsingPrice = 0;
+        try{
+            parsingPrice = Float.parseFloat(tempPrice);
+        }
+        catch (Exception e){
+            System.out.println("The price should be numeric");
+        }
+        if(tempPrice.length()<1){
+            System.out.println("Price data cannot be null");
+            Operation.getCommand();
+        }
+
+//-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
 
         //update products set name = 'GoldWinner',unit = 'Packet',type='OIL',price = '34',stock='500' where code = '3';
-        DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+" where code = "+code+" and ( code = "+code+")";
+        DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
         DbConnection.statement.execute(DbConnection.query);
         System.out.println("Product edited successfully !!!");
         Operation.getCommand();
     }
 
     public static void listHelp() throws SQLException {
-        System.out.println("List product with the following options\n" +
+        System.out.println("\t\tList product with the following options\n" +
                 "product list - will list all the products default to maximum upto 20 products\n" +
                 "product list -p 10 - pageable list shows 10 products as default\n" +
                 "product list -p 10 3 - pagable list shows 10 products in 3rd page, ie., product from 21 to 30\n" +
@@ -135,8 +300,38 @@ public class Product {
         System.out.print("If no stock just leave it and press Enter");
         System.out.print("Stock : ");
         String stock = DbConnection.scanner.nextLine();
+
+        //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
+        if(name.length()<3||name.length()>30){
+            System.out.println("name length should be within 3 to 30 characters");
+            Operation.getCommand();
+        }
+        boolean isUnitIsThere = false;
+        for(int i = 0;i<DbConnection.unittypes.length;i++){
+            System.out.println(i);
+            if(DbConnection.unittypes[i].equals(unit)){
+                isUnitIsThere = true;
+            }
+        }
+        if(!isUnitIsThere){
+            System.out.println("The Unit value is not matching as per pre defined units");
+            Operation.getCommand();
+        }
+        float parsingPrice = 0;
+        try{
+            parsingPrice = Float.parseFloat(price);
+        }
+        catch (Exception e){
+            System.out.println("The price should be numeric");
+        }
+
+        if(price.length()<1){
+            System.out.println("Price data cannot be null");
+            Operation.getCommand();
+        }
+        //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
         if(stock.isEmpty()){
-            DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+" where code = "+code+" and ( code = "+code+")";
+            DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
             DbConnection.statement.execute(DbConnection.query);
         }else{
             DbConnection.query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
@@ -165,13 +360,13 @@ public class Product {
         Operation.getCommand();
     }
 
-
-
     public static void listWithAttributes(String attribute,String searchText) throws SQLException {
         System.out.println("product list with "+searchText+"\nlist with attr");
         DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
-        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         while(DbConnection.resultSet.next()){
             String code =DbConnection.resultSet.getString("code");
             String name = DbConnection.resultSet.getString("name");
@@ -184,6 +379,7 @@ public class Product {
         }
         Operation.getCommand();
     }
+
     public static void listWithAttributesAndPaging(String attribute,String searchText,String limitItems,String page) throws SQLException {
         System.out.println("product list with "+searchText+"\nlist with attr and paging");
         DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc";
@@ -218,7 +414,9 @@ public class Product {
         DbConnection.query = "select * from products order by code asc";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int tempItemsCount = 1;
-        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
+        System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+        System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+        System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
         while(DbConnection.resultSet.next()){
             if(tempItemsCount<=20){
                 tempItemsCount+=1;
@@ -238,7 +436,9 @@ public class Product {
         DbConnection.query = "select * from products order by code asc";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int tempItemsCount = 1;
-        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
+        System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+        System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+        System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
         while(DbConnection.resultSet.next()){
             String code =DbConnection.resultSet.getString("code");
             String name = DbConnection.resultSet.getString("name");
@@ -262,7 +462,9 @@ public class Product {
         int tempEndItemNo = pageLimit*pageNo;
         int tempInitialItemNo = tempEndItemNo-pageLimit;
         int tempItemsCount = 1;
-        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
+        System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+        System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+        System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
         while(DbConnection.resultSet.next()){
             tempItemsCount +=1;
             String code =DbConnection.resultSet.getString("code");
@@ -276,4 +478,6 @@ public class Product {
             }
         }
     }
+
+    public static void globalSearchList(){}
 }

@@ -90,10 +90,10 @@ public class Operation {
                     System.out.println("Entered into list section");
                     try{
                         Product.listWithAttributesAndPaging(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
-                    }
-                    catch (Exception e){
+                    }catch (Exception e){
                         Product.listWithAttributes(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
                     }
+
 
                 } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-p")) {
                     try{
