@@ -13,33 +13,21 @@ public class Operation {
         if(lengthOfCmdBySpace<3){
             if(cmdBySpace[0].equals("product")) {
                 switch (cmdBySpace[1]) {
-                    case "create":
-                        Product.create();
-                        break;
-                    case "count":
-                        Product.count();
-                        break;
-                    case "edit":
-                        Product.edit();
-                        break;
-                    case "list":
-                        Product.listDefault();
-                        break;
+                    case "create" -> Product.create();
+                    case "count" -> Product.count();
+                    case "edit" -> Product.edit();
+                    case "list" -> Product.listDefault();
                 }
             }
         }
         if(lengthOfCmdBySpace>2){
             if(cmdBySpace[0].equals("product")){
                 if(cmdBySpace[2].equals("help")){
-                    switch (cmdBySpace[1]){
-                        case "create" : Product.productCreateHelp();
-                            break;
-                        case "list" : Product.listHelp();
-                            break;
-                        case "edit" : Product.editHelp();
-                            break;
-                        case "delete" : Product.deleteHelp();
-                            break;
+                    switch (cmdBySpace[1]) {
+                        case "create" -> Product.productCreateHelp();
+                        case "list" -> Product.listHelp();
+                        case "edit" -> Product.editHelp();
+                        case "delete" -> Product.deleteHelp();
                     }
                 } else if (cmdBySpaceAndComma[1].equals("create")) {
                    try{

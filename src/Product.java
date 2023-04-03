@@ -1,12 +1,12 @@
 
-import javax.management.StandardEmitterMBean;
+
 import java.sql.SQLException;
 
 public class Product extends DbConnection{
     public static void createWithAttributes(String code,String name,String unit,String type, String price) throws SQLException {
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
-        if(code.length()<2&&code.length()>7){
+        if(code.length()<2||code.length()>7){
             System.out.println("code length should be within 2 to 6 characters");
             Operation.getCommand();
         }
@@ -151,14 +151,15 @@ public class Product extends DbConnection{
     public static void productCreateHelp() throws SQLException {
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-        System.out.println("create product using the following template\n" +
-                "code, name, unit, type, price, stock\n" +
-                "code - text, min - 2 - 6, mandatory\n" +
-                "name - text, min 3 - 30 char, mandatory\n" +
-                "unitCode - text, kg/l/piece/combo, mandatory\n" +
-                "type - text, between enumerated values, mandatory \n" +
-                "price - number, mandatory\n" +
-                "stock - number, default 0");
+        System.out.println("""
+                create product using the following template
+                code, name, unit, type, price, stock
+                code - text, min - 2 - 6, mandatory
+                name - text, min 3 - 30 char, mandatory
+                unitCode - text, kg/l/piece/combo, mandatory
+                type - text, between enumerated values, mandatory\s
+                price - number, mandatory
+                stock - number, default 0""");
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
         Operation.getCommand();
     }
@@ -242,40 +243,42 @@ public class Product extends DbConnection{
     }
 
     public static void listHelp() throws SQLException {
-        System.out.println("\t\tList product with the following options\n" +
-                "product list - will list all the products default to maximum upto 20 products\n" +
-                "product list -p 10 - pageable list shows 10 products as default\n" +
-                "product list -p 10 3 - pagable list shows 10 products in 3rd page, ie., product from 21 to 30\n" +
-                "product list -s searchtext - search the product with the given search text in all the searchable attributes\n" +
-                "product list -s <attr>: searchtext - search the product with the given search text in all the given attribute\n" +
-                "product list -s <attr>: searchtext -p 10 6 - pagable list shows 10 products in 6th page with the given search text in the given attribute");
+        System.out.println("""
+                \t\tList product with the following options
+                product list - will list all the products default to maximum upto 20 products
+                product list -p 10 - pageable list shows 10 products as default
+                product list -p 10 3 - pagable list shows 10 products in 3rd page, ie., product from 21 to 30
+                product list -s searchtext - search the product with the given search text in all the searchable attributes
+                product list -s <attr>: searchtext - search the product with the given search text in all the given attribute
+                product list -s <attr>: searchtext -p 10 6 - pagable list shows 10 products in 6th page with the given search text in the given attribute""");
         Operation.getCommand();
     }
 
     public static void editHelp() throws SQLException {
-        System.out.println(">> Edit product using following template. Copy the product data from the list, edit the attribute values. \n" +
-                ">> id: <id - 6>, name: <name-edited>, unitcode: <unitcode>,  type: <type>, price: <price>\n" +
-                "\n" +
-                ">> You can also restrict the product data by editable attributes. Id attribute is mandatory for all the edit operation.\n" +
-                ">> id: <id - 6>, name: <name-edited>, unitcode: <unitcode-edited>\n" +
-                "\n" +
-                ">> You can not give empty or null values to the mandatory attributes.\n" +
-                ">> id: <id - 6>, name: , unitcode: null\n" +
-                ">>\n" +
-                " \n" +
-                " \tid\t - number, mandatory\t\n" +
-                "\tname - text, min 3 - 30 char, mandatory\n" +
-                "\tunitcode - text, kg/l/piece/combo, mandatory\n" +
-                "\ttype - text, between enumerated values, mandatory \n" +
-                "\tcostprice - numeric, mandatory");
+        System.out.println("""
+                Edit product using following template. Copy the product data from the list, edit the attribute values.\s
+                id: <id - 6>, name: <name-edited>, unitcode: <unitcode>,  type: <type>, price: <price>
+
+                You can also restrict the product data by editable attributes. Id attribute is mandatory for all the edit operation.
+                id: <id - 6>, name: <name-edited>, unitcode: <unitcode-edited>
+
+                You can not give empty or null values to the mandatory attributes.
+                id: <id - 6>, name: , unitcode: null
+                
+                \s
+                 \tid\t - number, mandatory\t
+                \tname - text, min 3 - 30 char, mandatory
+                \tunitcode - text, kg/l/piece/combo, mandatory
+                \ttype - text, between enumerated values, mandatory\s
+                \tcostprice - numeric, mandatory""");
         Operation.getCommand();
     }
 
     public static void deleteHelp() throws SQLException {
-        System.out.println(">> delete product using the following template\n" +
-                "\t\n" +
-                "\t\tproductid - numeric, existing\n" +
-                ">> product delete -c <code>");
+        System.out.println("""
+                delete product using the following template
+                productid - numeric, existing
+                product delete -c <code>""");
         Operation.getCommand();
     }
 
@@ -501,8 +504,7 @@ public class Product extends DbConnection{
 
         try{
 
-            Float parsingPrice = Float.parseFloat(keyword);
-            System.out.println("Entered  intp try BLOCK GLOBE");
+            float parsingPrice = Float.parseFloat(keyword);
 
             for(String columnName : tableColumnsHasNumericType){
 
