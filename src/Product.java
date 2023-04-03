@@ -479,5 +479,180 @@ public class Product {
         }
     }
 
-    public static void globalSearchList(){}
+    public static void globalSearchList(String keyword) throws SQLException {
+        //System.out.println("Did you searched for this ? "+keyword);
+
+        String[] tableColumnsHasStringType = {"name","unit","type"};
+        String[] tableColumnsHasNumericType = {"code","price","stock"};
+
+        int tempCode = 0;
+        int tempName = 0;
+        int tempUnit = 0;
+        int tempType = 0;
+        int tempPrice = 0;
+        int tempStock = 0;
+
+
+        try{
+
+            Float parsingPrice = Float.parseFloat(keyword);
+            System.out.println("Entered  intp try BLOCK GLOBE");
+
+            for(String columnName : tableColumnsHasNumericType){
+
+                DbConnection.query = "select * from products where "+columnName+" = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                while(DbConnection.resultSet.next()){
+                    if(columnName.equals("code")){
+                        tempCode+=1;
+                    } else if (columnName.equals("price")) {
+                        tempPrice+=1;
+                    }else{
+                        tempStock+=1;
+                    }
+                }
+            }
+            System.out.println("Found "+tempCode+" in code column");
+            System.out.println("Found "+tempName+" in name column");
+            System.out.println("Found "+tempUnit+" in unit column");
+            System.out.println("Found "+tempType+" in type column");
+            System.out.println("Found "+tempPrice+" in price column");
+            System.out.println("Found "+tempStock+" in stock column");
+            if(tempCode>0){
+                System.out.println(DbConnection.line+"Results in : code "+DbConnection.reset);
+                DbConnection.query = "select * from products where code = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                while(DbConnection.resultSet.next()){
+                    String code =DbConnection.resultSet.getString("code");
+                    String name = DbConnection.resultSet.getString("name");
+                    String unit = DbConnection.resultSet.getString("unit");
+                    String type = DbConnection.resultSet.getString("type");
+                    String price = DbConnection.resultSet.getString("price");
+                    String stock = DbConnection.resultSet.getString("stock");
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                }
+
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+            }
+            if(tempPrice>0){
+                System.out.println(DbConnection.line+"Results in : price "+DbConnection.reset);
+                DbConnection.query = "select * from products where price = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                while(DbConnection.resultSet.next()){
+                    String code =DbConnection.resultSet.getString("code");
+                    String name = DbConnection.resultSet.getString("name");
+                    String unit = DbConnection.resultSet.getString("unit");
+                    String type = DbConnection.resultSet.getString("type");
+                    String price = DbConnection.resultSet.getString("price");
+                    String stock = DbConnection.resultSet.getString("stock");
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                }
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+            }
+            if(tempStock>0){
+                System.out.println(DbConnection.line+"Results in : stock "+DbConnection.reset);
+                DbConnection.query = "select * from products where stock = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                while(DbConnection.resultSet.next()){
+                    String code =DbConnection.resultSet.getString("code");
+                    String name = DbConnection.resultSet.getString("name");
+                    String unit = DbConnection.resultSet.getString("unit");
+                    String type = DbConnection.resultSet.getString("type");
+                    String price = DbConnection.resultSet.getString("price");
+                    String stock = DbConnection.resultSet.getString("stock");
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                }
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+            }
+        }
+        catch (Exception e){
+            for(String columnName : tableColumnsHasStringType){
+
+                DbConnection.query = "select * from products where "+columnName+" = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                while(DbConnection.resultSet.next()){
+                    if(columnName.equals("name")){
+                        tempName+=1;
+                    } else if (columnName.equals("unit")) {
+                        tempUnit+=1;
+                    }else{
+                        tempType+=1;
+                    }
+                }
+            }
+
+            System.out.println("Found "+tempCode+" in code column");
+            System.out.println("Found "+tempName+" in name column");
+            System.out.println("Found "+tempUnit+" in unit column");
+            System.out.println("Found "+tempType+" in type column");
+            System.out.println("Found "+tempPrice+" in price column");
+            System.out.println("Found "+tempStock+" in stock column");
+
+            if(tempName>0){
+                System.out.println(DbConnection.line+"Results in : name "+DbConnection.reset);
+                DbConnection.query = "select * from products where name = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                while(DbConnection.resultSet.next()){
+                    String code =DbConnection.resultSet.getString("code");
+                    String name = DbConnection.resultSet.getString("name");
+                    String unit = DbConnection.resultSet.getString("unit");
+                    String type = DbConnection.resultSet.getString("type");
+                    String price = DbConnection.resultSet.getString("price");
+                    String stock = DbConnection.resultSet.getString("stock");
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                }
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+            }
+            if(tempUnit>0){
+                System.out.println(DbConnection.line+"Results in : unit "+DbConnection.reset);
+                DbConnection.query = "select * from products where unit = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                while(DbConnection.resultSet.next()){
+                    String code =DbConnection.resultSet.getString("code");
+                    String name = DbConnection.resultSet.getString("name");
+                    String unit = DbConnection.resultSet.getString("unit");
+                    String type = DbConnection.resultSet.getString("type");
+                    String price = DbConnection.resultSet.getString("price");
+                    String stock = DbConnection.resultSet.getString("stock");
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                }
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+            }
+
+            if(tempType>0){
+                System.out.println(DbConnection.line+"Results in : type "+DbConnection.reset);
+                DbConnection.query = "select * from products where type = '"+keyword+"' order by code asc";
+                DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                System.out.println(String.format(DbConnection.title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+DbConnection.reset);
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+                while(DbConnection.resultSet.next()){
+                    String code =DbConnection.resultSet.getString("code");
+                    String name = DbConnection.resultSet.getString("name");
+                    String unit = DbConnection.resultSet.getString("unit");
+                    String type = DbConnection.resultSet.getString("type");
+                    String price = DbConnection.resultSet.getString("price");
+                    String stock = DbConnection.resultSet.getString("stock");
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                }
+                System.out.println(DbConnection.line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+DbConnection.reset);
+            }
+
+        }
+    }
 }

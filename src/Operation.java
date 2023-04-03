@@ -91,7 +91,18 @@ public class Operation {
                     try{
                         Product.listWithAttributesAndPaging(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
                     }catch (Exception e){
-                        Product.listWithAttributes(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
+                        try{
+                            Product.listWithAttributes(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
+                        }
+                        catch (Exception err){
+
+                            try{
+                                Product.globalSearchList(cmdBySpaceAndComma[3]);
+                            }
+                            catch (Exception error){
+                                System.out.println("Something went wrong");
+                            }
+                        }
                     }
 
 
