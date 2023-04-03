@@ -132,10 +132,16 @@ public class Product {
         System.out.println("product list with "+searchText+"\nlist with attr");
         DbConnection.query = "select * from products where "+attribute+" = '"+searchText+"'";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
-
+        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
         while(DbConnection.resultSet.next()){
-            System.out.println(DbConnection.resultSet.getString("name"));
-            System.out.println(DbConnection.resultSet.getString("type"));
+            String code =DbConnection.resultSet.getString("code");
+            String name = DbConnection.resultSet.getString("name");
+            String unit = DbConnection.resultSet.getString("unit");
+            String type = DbConnection.resultSet.getString("type");
+            String price = DbConnection.resultSet.getString("price");
+            String stock = DbConnection.resultSet.getString("stock");
+            System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+
         }
         Operation.getCommand();
     }
@@ -150,11 +156,18 @@ public class Product {
         int tempInitialItemNo = tempEndItemNo-pageLimit;
 
         int tempItemsCount = 1;
+        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
         while(DbConnection.resultSet.next()){
             tempItemsCount +=1;
+            String code =DbConnection.resultSet.getString("code");
+            String name = DbConnection.resultSet.getString("name");
+            String unit = DbConnection.resultSet.getString("unit");
+            String type = DbConnection.resultSet.getString("type");
+            String price = DbConnection.resultSet.getString("price");
+            String stock = DbConnection.resultSet.getString("stock");
 
             if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
-                System.out.println(DbConnection.resultSet.getString("code")+"       "+DbConnection.resultSet.getString("name"));
+                System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
 
 
@@ -166,10 +179,17 @@ public class Product {
         DbConnection.query = "select * from products";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int tempItemsCount = 1;
+        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
         while(DbConnection.resultSet.next()){
             if(tempItemsCount<=20){
                 tempItemsCount+=1;
-                System.out.println(DbConnection.resultSet.getString("name")+"   "+DbConnection.resultSet.getString("code"));
+                String code =DbConnection.resultSet.getString("code");
+                String name = DbConnection.resultSet.getString("name");
+                String unit = DbConnection.resultSet.getString("unit");
+                String type = DbConnection.resultSet.getString("type");
+                String price = DbConnection.resultSet.getString("price");
+                String stock = DbConnection.resultSet.getString("stock");
+                System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
 
         }
@@ -179,10 +199,17 @@ public class Product {
         DbConnection.query = "select * from products";
         DbConnection.resultSet = DbConnection.statement.executeQuery(DbConnection.query);
         int tempItemsCount = 1;
+        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
         while(DbConnection.resultSet.next()){
+            String code =DbConnection.resultSet.getString("code");
+            String name = DbConnection.resultSet.getString("name");
+            String unit = DbConnection.resultSet.getString("unit");
+            String type = DbConnection.resultSet.getString("type");
+            String price = DbConnection.resultSet.getString("price");
+            String stock = DbConnection.resultSet.getString("stock");
             if(tempItemsCount<=Integer.parseInt(defaultItemCount)){
                 tempItemsCount+=1;
-                System.out.println(DbConnection.resultSet.getString("name")+"   "+DbConnection.resultSet.getString("code"));
+                System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
 
         }
@@ -195,13 +222,18 @@ public class Product {
         int pageNo = Integer.parseInt(page);
         int tempEndItemNo = pageLimit*pageNo;
         int tempInitialItemNo = tempEndItemNo-pageLimit;
-
         int tempItemsCount = 1;
+        System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
         while(DbConnection.resultSet.next()){
             tempItemsCount +=1;
-
+            String code =DbConnection.resultSet.getString("code");
+            String name = DbConnection.resultSet.getString("name");
+            String unit = DbConnection.resultSet.getString("unit");
+            String type = DbConnection.resultSet.getString("type");
+            String price = DbConnection.resultSet.getString("price");
+            String stock = DbConnection.resultSet.getString("stock");
             if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
-                System.out.println(DbConnection.resultSet.getString("code")+"       "+DbConnection.resultSet.getString("name"));
+                System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
         }
     }
