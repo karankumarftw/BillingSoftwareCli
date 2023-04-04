@@ -7,23 +7,23 @@ public class Product extends DbConnection{
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
-            System.out.println("code length should be within 2 to 6 characters");
+            System.out.println(error+"\nTemplate mismatch (code length should be within 2 to 6 characters)"+reset);
             Operation.getCommand();
         }
 
         if(name.length()<3||name.length()>30){
-            System.out.println("name length should be within 3 to 30 characters");
+            System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters)"+reset);
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
         for(int i = 0;i<unittypes.length;i++){
-            System.out.println(i);
+
             if(unittypes[i].equals(unit)){
                 isUnitIsThere = true;
             }
         }
         if(!isUnitIsThere){
-            System.out.println("The Unit value is not matching as per pre defined units");
+            System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units)"+reset);
             Operation.getCommand();
         }
 
@@ -32,10 +32,10 @@ public class Product extends DbConnection{
             parsingPrice = Float.parseFloat(price);
         }
         catch (Exception e){
-            System.out.println("The price should be numeric");
+            System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
         }
         if(price.length()<1){
-            System.out.println("Price data cannot be null");
+            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null) "+reset);
             Operation.getCommand();
         }
 //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
@@ -52,34 +52,35 @@ public class Product extends DbConnection{
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
-            System.out.println("code length should be within 2 to 6 characters");
+            System.out.println(error+"\nTemplate mismatch ( code length should be within 2 to 6 characters )"+reset);
             Operation.getCommand();
         }
+
         if(name.length()<3||name.length()>30){
-            System.out.println("name length should be within 3 to 30 characters");
+            System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters )"+reset);
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
         for(int i = 0;i<unittypes.length;i++){
-            System.out.println(i);
+
             if(unittypes[i].equals(unit)){
                 isUnitIsThere = true;
             }
         }
-
-        if(isUnitIsThere){
-            System.out.println("The Unit value is not matching as per pre defined units");
+        if(!isUnitIsThere){
+            System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units )"+reset);
             Operation.getCommand();
         }
+
         float parsingPrice = 0;
         try{
             parsingPrice = Float.parseFloat(price);
         }
         catch (Exception e){
-            System.out.println("The price should be numeric");
+            System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
         }
         if(price.length()<1){
-            System.out.println("Price data cannot be null");
+            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
             Operation.getCommand();
         }
 //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
@@ -94,48 +95,49 @@ public class Product extends DbConnection{
        //-------------------------GETTING INPUTS FOR PRODUCT CREATION ----------------------------------------------//
         System.out.print("code : ");
         String code = scanner.nextLine();
-        System.out.print("name : ");
+        System.out.println("name : ");
         String name = scanner.nextLine();
-        System.out.println("unit : ");
+        System.out.print("unit : ");
         String unit = scanner.nextLine();
-        System.out.println("type : ");
+        System.out.print("type : ");
         String type = scanner.nextLine();
-        System.out.println("price : ");
+        System.out.print("price : ");
         String price = scanner.nextLine();
-        System.out.println("If no stock just leave it and press Enter");
-        System.out.println("Stock : ");
+        System.out.print("If no stock just leave it and press Enter");
+        System.out.print("Stock : ");
         String stock = scanner.nextLine();
         //------------------------- GETTING INPUTS FOR PRODUCT CREATION ENDS ----------------------------------------------//
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
-            System.out.println("code length should be within 2 to 6 characters");
+            System.out.println(error+" \nTemplate mismatch (code length should be within 2 to 6 characters )"+reset);
             Operation.getCommand();
         }
+
         if(name.length()<3||name.length()>30){
-            System.out.println("name length should be within 3 to 30 characters");
+            System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters )"+reset);
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
         for(int i = 0;i<unittypes.length;i++){
-            System.out.println(i);
+
             if(unittypes[i].equals(unit)){
                 isUnitIsThere = true;
             }
         }
-
-        if(isUnitIsThere){
-            System.out.println("The Unit value is not matching as per pre defined units");
+        if(!isUnitIsThere){
+            System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
             Operation.getCommand();
         }
+
         float parsingPrice = 0;
         try{
             parsingPrice = Float.parseFloat(price);
         }
         catch (Exception e){
-            System.out.println("The price should be numeric");
+            System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
         }
         if(price.length()<1){
-            System.out.println("Price data cannot be null");
+            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
             Operation.getCommand();
         }
 
@@ -166,8 +168,8 @@ public class Product extends DbConnection{
 
     public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice,String tempStock) throws SQLException {
 //------------------------------------------- VALIDATION -----------------------------------------------------------------------------//
-        if(name.length()<3||name.length()>30){
-            System.out.println("name length should be within 3 to 30 characters");
+        if(code.length()<2||code.length()>7){
+            System.out.println(error+" \nTemplate mismatch ( code length should be within 2 to 6 characters )"+reset);
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
@@ -178,7 +180,7 @@ public class Product extends DbConnection{
             }
         }
         if(!isUnitIsThere){
-            System.out.println("The Unit value is not matching as per pre defined units");
+            System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
             Operation.getCommand();
         }
         float parsingPrice = 0;
@@ -186,10 +188,10 @@ public class Product extends DbConnection{
             parsingPrice = Float.parseFloat(tempPrice);
         }
         catch (Exception e){
-            System.out.println("The price should be numeric");
+            System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
         }
         if(tempPrice.length()<1){
-            System.out.println("Price data cannot be null");
+            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
             Operation.getCommand();
         }
 
@@ -206,7 +208,7 @@ public class Product extends DbConnection{
     public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice) throws SQLException {
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(name.length()<3||name.length()>30){
-            System.out.println("name length should be within 3 to 30 characters");
+            System.out.println(error+"\nTemplate mismatch ( name length should be within 3 to 30 characters )"+reset);
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
@@ -217,7 +219,7 @@ public class Product extends DbConnection{
             }
         }
         if(!isUnitIsThere){
-            System.out.println("The Unit value is not matching as per pre defined units");
+            System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units )"+reset);
             Operation.getCommand();
         }
 
@@ -226,10 +228,10 @@ public class Product extends DbConnection{
             parsingPrice = Float.parseFloat(tempPrice);
         }
         catch (Exception e){
-            System.out.println("The price should be numeric");
+            System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
         }
         if(tempPrice.length()<1){
-            System.out.println("Price data cannot be null");
+            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
             Operation.getCommand();
         }
 
@@ -238,7 +240,7 @@ public class Product extends DbConnection{
         //update products set name = 'GoldWinner',unit = 'Packet',type='OIL',price = '34',stock='500' where code = '3';
         query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
         statement.execute(query);
-        System.out.println("Product edited successfully !!!");
+        System.out.println(successful+"Product edited successfully !!!"+reset);
         Operation.getCommand();
     }
 
@@ -265,12 +267,12 @@ public class Product extends DbConnection{
                 You can not give empty or null values to the mandatory attributes.
                 id: <id - 6>, name: , unitcode: null
                 
-                \s
-                 \tid\t - number, mandatory\t
-                \tname - text, min 3 - 30 char, mandatory
-                \tunitcode - text, kg/l/piece/combo, mandatory
-                \ttype - text, between enumerated values, mandatory\s
-                \tcostprice - numeric, mandatory""");
+                
+                id - number, mandatory
+                name - text, min 3 - 30 char, mandatory
+                unitcode - text, kg/l/piece/combo, mandatory
+                type - text, between enumerated values, mandatory
+                costprice - numeric, mandatory""");
         Operation.getCommand();
     }
 
@@ -312,30 +314,30 @@ public class Product extends DbConnection{
 
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(name.length()<3||name.length()>30){
-            System.out.println("name length should be within 3 to 30 characters");
+            System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters)"+reset);
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
         for(int i = 0;i<unittypes.length;i++){
-            System.out.println(i);
+
             if(unittypes[i].equals(unit)){
                 isUnitIsThere = true;
             }
         }
         if(!isUnitIsThere){
-            System.out.println("The Unit value is not matching as per pre defined units");
+            System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units)"+reset);
             Operation.getCommand();
         }
+
         float parsingPrice = 0;
         try{
             parsingPrice = Float.parseFloat(price);
         }
         catch (Exception e){
-            System.out.println("The price should be numeric");
+            System.out.println(error+"\nTemplate mismatch ( The price should be numeric)"+reset);
         }
-
         if(price.length()<1){
-            System.out.println("Price data cannot be null");
+            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null)"+reset);
             Operation.getCommand();
         }
         //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
@@ -347,7 +349,7 @@ public class Product extends DbConnection{
             statement.execute(query);
         }
 
-        System.out.println("Product edited successfully");
+        System.out.println(successful+"Product edited successfully"+reset);
         Operation.getCommand();
     }
 
@@ -355,17 +357,21 @@ public class Product extends DbConnection{
         System.out.println("Are you sure want to delete the product ? y/n");
         String choice = scanner.nextLine();
         if(choice.equalsIgnoreCase("yes")|| choice.equalsIgnoreCase("y")) {
-            try {
-
+            query = "select * from products where code = "+code+"";
+            resultSet = statement.executeQuery(query);
+            int resultCount = 0;
+            while(resultSet.next()){
+                resultCount+=1;
+            }
+            if(resultCount<1){
+                System.out.println(error+"\nproduct doesn't exist"+reset);
+            }else {
                 query = "delete from products where code = '" + code + "'";
                 statement.execute(query);
-                System.out.println("Product deleted successfully");
-            } catch (Exception e) {
-                System.out.println("product doesn't exist");
+                System.out.println(successful+"Product deleted successfully"+reset);
             }
+
         }
-
-
         Operation.getCommand();
     }
 
@@ -386,6 +392,7 @@ public class Product extends DbConnection{
             System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
 
         }
+        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
         Operation.getCommand();
     }
 
@@ -416,6 +423,7 @@ public class Product extends DbConnection{
 
 
         }
+        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
         Operation.getCommand();
     }
 
@@ -437,8 +445,9 @@ public class Product extends DbConnection{
                 String stock = resultSet.getString("stock");
                 System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
-
         }
+        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+        Operation.getCommand();
     }
 
     public static void listDefaultWithListCount(String defaultItemCount) throws SQLException {
@@ -459,8 +468,9 @@ public class Product extends DbConnection{
                 tempItemsCount+=1;
                 System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
-
         }
+        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+        Operation.getCommand();
     }
 
     public static void listDefaultWithListCountAndPageNo(String limitItems,String page) throws SQLException {
@@ -502,6 +512,7 @@ public class Product extends DbConnection{
         int tempStock = 0;
 
 
+        final String tableTitle = String.format(title + "%20s", "CODE") + String.format("%20s", "NAME") + String.format("%20s", "UNIT") + String.format("%20s", "TYPE") + String.format("%20s", "PRICE") + String.format("%20s", "STOCK") + reset;
         try{
 
             float parsingPrice = Float.parseFloat(keyword);
@@ -531,16 +542,16 @@ public class Product extends DbConnection{
                 query = "select * from products where code = '"+keyword+"' order by code asc";
                 resultSet = statement.executeQuery(query);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                System.out.println(tableTitle);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
                 while(resultSet.next()){
                     String code =resultSet.getString("code");
                     String name = resultSet.getString("name");
                     String unit = resultSet.getString("unit");
                     String type = resultSet.getString("type");
-                    String price = resultSet.getString("price");
+                    parsingPrice = Float.parseFloat(resultSet.getString("price"));
                     String stock = resultSet.getString("stock");
-                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",parsingPrice)+String.format("%20s",stock));
                 }
 
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
@@ -550,16 +561,16 @@ public class Product extends DbConnection{
                 query = "select * from products where price = '"+keyword+"' order by code asc";
                 resultSet = statement.executeQuery(query);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                System.out.println(tableTitle);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
                 while(resultSet.next()){
                     String code =resultSet.getString("code");
                     String name = resultSet.getString("name");
                     String unit = resultSet.getString("unit");
                     String type = resultSet.getString("type");
-                    String price = resultSet.getString("price");
+                    parsingPrice = Float.parseFloat(resultSet.getString("price"));
                     String stock = resultSet.getString("stock");
-                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",parsingPrice)+String.format("%20s",stock));
                 }
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
             }
@@ -568,16 +579,16 @@ public class Product extends DbConnection{
                 query = "select * from products where stock = '"+keyword+"' order by code asc";
                 resultSet = statement.executeQuery(query);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                System.out.println(tableTitle);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
                 while(resultSet.next()){
                     String code =resultSet.getString("code");
                     String name = resultSet.getString("name");
                     String unit = resultSet.getString("unit");
                     String type = resultSet.getString("type");
-                    String price = resultSet.getString("price");
+                    parsingPrice = Float.parseFloat(resultSet.getString("price"));
                     String stock = resultSet.getString("stock");
-                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+                    System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",parsingPrice)+String.format("%20s",stock));
                 }
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
             }
@@ -610,7 +621,7 @@ public class Product extends DbConnection{
                 query = "select * from products where name = '"+keyword+"' order by code asc";
                 resultSet = statement.executeQuery(query);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                System.out.println(tableTitle);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
                 while(resultSet.next()){
                     String code =resultSet.getString("code");
@@ -628,7 +639,7 @@ public class Product extends DbConnection{
                 query = "select * from products where unit = '"+keyword+"' order by code asc";
                 resultSet = statement.executeQuery(query);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                System.out.println(tableTitle);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
                 while(resultSet.next()){
                     String code =resultSet.getString("code");
@@ -647,7 +658,7 @@ public class Product extends DbConnection{
                 query = "select * from products where type = '"+keyword+"' order by code asc";
                 resultSet = statement.executeQuery(query);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                System.out.println(tableTitle);
                 System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
                 while(resultSet.next()){
                     String code =resultSet.getString("code");
