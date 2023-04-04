@@ -39,11 +39,12 @@ public class Product extends DbConnection{
             Operation.getCommand();
         }
 //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
-
-
+        
         query = "insert into products(code,name,unit,type,price) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"')";
         statement.execute(query);
         System.out.println("Product inserted successfully");
+
+         
         Operation.getCommand();
     }
 
@@ -87,6 +88,7 @@ public class Product extends DbConnection{
         query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"','"+stock+"')";
         statement.execute(query);
         System.out.println("Product inserted successfully");
+         
         Operation.getCommand();
     }
 
@@ -146,7 +148,7 @@ public class Product extends DbConnection{
         query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"','"+stock+"')";
         statement.execute(query);
         System.out.println("Product inserted successfully");
-
+         
         Operation.getCommand();
     }
 
@@ -202,6 +204,7 @@ public class Product extends DbConnection{
         query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
         statement.execute(query);
         System.out.println("Product edited successfully !!!");
+         
         Operation.getCommand();
     }
 
@@ -237,10 +240,11 @@ public class Product extends DbConnection{
 
 //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
 
-        //update products set name = 'GoldWinner',unit = 'Packet',type='OIL',price = '34',stock='500' where code = '3';
+
         query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
         statement.execute(query);
         System.out.println(successful+"Product edited successfully !!!"+reset);
+         
         Operation.getCommand();
     }
 
@@ -293,6 +297,7 @@ public class Product extends DbConnection{
             count+=1;
         }
         System.out.println("Total count of the product : " + count);
+         
         Operation.getCommand();
     }
 
@@ -350,6 +355,7 @@ public class Product extends DbConnection{
         }
 
         System.out.println(successful+"Product edited successfully"+reset);
+         
         Operation.getCommand();
     }
 
@@ -372,11 +378,13 @@ public class Product extends DbConnection{
             }
 
         }
+         
         Operation.getCommand();
     }
 
     public static void listWithAttributes(String attribute,String searchText) throws SQLException {
         System.out.println("product list with "+searchText+"\nlist with attr");
+        
         query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc";
         resultSet = statement.executeQuery(query);
         System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
@@ -390,9 +398,9 @@ public class Product extends DbConnection{
             String price = resultSet.getString("price");
             String stock = resultSet.getString("stock");
             System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
-
         }
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+         
         Operation.getCommand();
     }
 
@@ -405,7 +413,7 @@ public class Product extends DbConnection{
         int pageNo = Integer.parseInt(page);
         int tempEndItemNo = pageLimit*pageNo;
         int tempInitialItemNo = tempEndItemNo-pageLimit;
-
+        int isTableColumnEnabled = 0;
         int tempItemsCount = 1;
         System.out.println(String.format("%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK"));
         while(resultSet.next()){
@@ -418,12 +426,20 @@ public class Product extends DbConnection{
             String stock = resultSet.getString("stock");
 
             if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
+                isTableColumnEnabled +=1;
+                if(isTableColumnEnabled==1){
+                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+                    System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+                }
                 System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
 
-
         }
-        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+
+        if(isTableColumnEnabled==1){
+            System.out.println(DbConnection.error+"WARNING : Requested page doesn't exist !"+DbConnection.reset);
+        }
         Operation.getCommand();
     }
 
@@ -447,6 +463,7 @@ public class Product extends DbConnection{
             }
         }
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+         
         Operation.getCommand();
     }
 
@@ -470,6 +487,7 @@ public class Product extends DbConnection{
             }
         }
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+         
         Operation.getCommand();
     }
 
@@ -481,9 +499,8 @@ public class Product extends DbConnection{
         int tempEndItemNo = pageLimit*pageNo;
         int tempInitialItemNo = tempEndItemNo-pageLimit;
         int tempItemsCount = 1;
-        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-        System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
-        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+
+        int isTableColumnEnabled = 0;
         while(resultSet.next()){
             tempItemsCount +=1;
             String code =resultSet.getString("code");
@@ -493,9 +510,22 @@ public class Product extends DbConnection{
             String price = resultSet.getString("price");
             String stock = resultSet.getString("stock");
             if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
+                isTableColumnEnabled +=1;
+                if(isTableColumnEnabled==1){
+                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+                    System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+                }
+
                 System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
+
         }
+        if(isTableColumnEnabled==0){
+            System.out.println(DbConnection.error+"WARNING : Requested page doesn't exist !"+DbConnection.reset);
+        }
+         
+        Operation.getCommand();
     }
 
     public static void globalSearchList(String keyword) throws SQLException {
@@ -673,6 +703,7 @@ public class Product extends DbConnection{
             }
 
         }
+         
         Operation.getCommand();
     }
 }

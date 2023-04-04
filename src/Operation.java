@@ -12,15 +12,21 @@ public class Operation {
         int lengthOfCmdBySpace = cmdBySpace.length;
         if(lengthOfCmdBySpace<3){
             if(cmdBySpace[0].equals("product")) {
-                switch (cmdBySpace[1]) {
-                    case "create" -> Product.create();
-                    case "count" -> Product.count();
-                    case "edit" -> Product.edit();
-                    case "list" -> Product.listDefault();
+                try{
+                    switch (cmdBySpace[1]) {
+                        case "create" -> Product.create();
+                        case "count" -> Product.count();
+                        case "edit" -> Product.edit();
+                        case "list" -> Product.listDefault();
+                    }
                 }
+                catch (Exception e){
+                    System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
+                }
+
             }
         }
-        if(lengthOfCmdBySpace>2){
+        else if(lengthOfCmdBySpace>2){
             if(cmdBySpace[0].equals("product")){
                 if(cmdBySpace[2].equals("help")){
                     switch (cmdBySpace[1]) {
@@ -47,7 +53,7 @@ public class Operation {
                         Product.editWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6]);
                     }
                 } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-s")) {
-                    System.out.println("Entered into list section");
+
                     try{
                         Product.listWithAttributesAndPaging(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
                     }catch (Exception e){
@@ -71,7 +77,16 @@ public class Operation {
                         Product.listDefaultWithListCount(cmdBySpaceAndComma[3]);
                     }
                 }
+                else {
+                    System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
+                }
             }
+            else{
+                System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
+            }
+        }
+        else{
+            System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
         }
         getCommand();
         }
