@@ -1,3 +1,5 @@
+package Modules;
+
 import java.sql.SQLException;
 
 import static Core.DbConnectionScannerAndFormatting.*;
@@ -43,7 +45,7 @@ public class Product{
         
         query = "insert into products(code,name,unit,type,price) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"')";
         statement.execute(query);
-        System.out.println("Product inserted successfully");
+        System.out.println("Modules.Product inserted successfully");
 
 
 
@@ -89,7 +91,7 @@ public class Product{
 //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
         query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"','"+stock+"')";
         statement.execute(query);
-        System.out.println("Product inserted successfully");
+        System.out.println("Modules.Product inserted successfully");
 
 
     }
@@ -207,7 +209,7 @@ public class Product{
         //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
         query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
         statement.execute(query);
-        System.out.println("Product edited successfully !!!");
+        System.out.println("Modules.Product edited successfully !!!");
     }
 
     public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice) throws SQLException {
@@ -246,7 +248,7 @@ public class Product{
 
         query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
         statement.execute(query);
-        System.out.println(successful+"Product edited successfully !!!"+reset);
+        System.out.println(successful+"Modules.Product edited successfully !!!"+reset);
 
 
     }
@@ -292,7 +294,7 @@ public class Product{
     }
 
     public static void count() throws SQLException {
-        System.out.println("Product count");
+
         query = "select * from products";
         resultSet = statement.executeQuery(query);
         int count = 0;
@@ -359,7 +361,7 @@ public class Product{
             statement.execute(query);
         }
 
-        System.out.println(successful+"Product edited successfully"+reset);
+        System.out.println(successful+"Modules.Product edited successfully"+reset);
 
 
     }
@@ -379,7 +381,7 @@ public class Product{
             }else {
                 query = "delete from products where code = '" + code + "'";
                 statement.execute(query);
-                System.out.println(successful+"Product deleted successfully"+reset);
+                System.out.println(successful+"Modules.Product deleted successfully"+reset);
             }
 
         }
