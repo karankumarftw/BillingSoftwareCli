@@ -8,12 +8,12 @@ public class Product extends DbConnection{
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
             System.out.println(error+"\nTemplate mismatch (code length should be within 2 to 6 characters)"+reset);
-            Operation.getCommand();
+            return;
         }
 
         if(name.length()<3||name.length()>30){
             System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters)"+reset);
-            Operation.getCommand();
+            return;
         }
         boolean isUnitIsThere = false;
         for (String unittype : unittypes) {
@@ -25,7 +25,7 @@ public class Product extends DbConnection{
         }
         if(!isUnitIsThere){
             System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units)"+reset);
-            Operation.getCommand();
+            return;
         }
 
         float parsingPrice = 0;
@@ -37,7 +37,7 @@ public class Product extends DbConnection{
         }
         if(price.length()<1){
             System.out.println(error+"\nTemplate mismatch ( Price data cannot be null) "+reset);
-            Operation.getCommand();
+            return;
         }
 //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
         
@@ -45,8 +45,8 @@ public class Product extends DbConnection{
         statement.execute(query);
         System.out.println("Product inserted successfully");
 
-         
-        Operation.getCommand();
+
+
     }
 
     public static void createWithAttributes(String code,String name,String unit,String type, String price,String stock) throws SQLException {
@@ -55,12 +55,12 @@ public class Product extends DbConnection{
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
             System.out.println(error+"\nTemplate mismatch ( code length should be within 2 to 6 characters )"+reset);
-            Operation.getCommand();
+            return;
         }
 
         if(name.length()<3||name.length()>30){
             System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters )"+reset);
-            Operation.getCommand();
+            return;
         }
         boolean isUnitIsThere = false;
         for (String unittype : unittypes) {
@@ -72,7 +72,7 @@ public class Product extends DbConnection{
         }
         if(!isUnitIsThere){
             System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units )"+reset);
-            Operation.getCommand();
+            return;
         }
 
         float parsingPrice = 0;
@@ -84,14 +84,14 @@ public class Product extends DbConnection{
         }
         if(price.length()<1){
             System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
-            Operation.getCommand();
+            return;
         }
 //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
         query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"','"+stock+"')";
         statement.execute(query);
         System.out.println("Product inserted successfully");
-         
-        Operation.getCommand();
+
+
     }
 
     public static void create() throws SQLException {
@@ -114,12 +114,12 @@ public class Product extends DbConnection{
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
             System.out.println(error+" \nTemplate mismatch (code length should be within 2 to 6 characters )"+reset);
-            Operation.getCommand();
+            return;
         }
 
         if(name.length()<3||name.length()>30){
             System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters )"+reset);
-            Operation.getCommand();
+            return;
         }
         boolean isUnitIsThere = false;
         for (String unittype : unittypes) {
@@ -131,19 +131,20 @@ public class Product extends DbConnection{
         }
         if(!isUnitIsThere){
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
-            Operation.getCommand();
+            return;
         }
 
-        float parsingPrice = 0;
+        float parsingPrice;
         try{
             parsingPrice = Float.parseFloat(price);
         }
         catch (Exception e){
             System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
+            return;
         }
         if(price.length()<1){
             System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
-            Operation.getCommand();
+            return;
         }
 
 //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
@@ -151,11 +152,11 @@ public class Product extends DbConnection{
         query = "insert into products(code,name,unit,type,price,stock) values ('"+code+"','"+name+"','"+unit+"','"+type+"','"+parsingPrice+"','"+stock+"')";
         statement.execute(query);
         System.out.println("Product inserted successfully");
-         
-        Operation.getCommand();
+
+
     }
 
-    public static void productCreateHelp() throws SQLException {
+    public static void productCreateHelp() {
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
         System.out.println("""
@@ -168,14 +169,13 @@ public class Product extends DbConnection{
                 price - number, mandatory
                 stock - number, default 0""");
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-        Operation.getCommand();
     }
 
     public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice,String tempStock) throws SQLException {
 //------------------------------------------- VALIDATION -----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
             System.out.println(error+" \nTemplate mismatch ( code length should be within 2 to 6 characters )"+reset);
-            Operation.getCommand();
+            return;
         }
         boolean isUnitIsThere = false;
         for(int i = 0;i<unittypes.length;i++){
@@ -186,18 +186,19 @@ public class Product extends DbConnection{
         }
         if(!isUnitIsThere){
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
-            Operation.getCommand();
+            return;
         }
-        float parsingPrice = 0;
+        float parsingPrice;
         try{
             parsingPrice = Float.parseFloat(tempPrice);
         }
         catch (Exception e){
             System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
+            return;
         }
         if(tempPrice.length()<1){
             System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
-            Operation.getCommand();
+            return;
         }
 
 
@@ -207,15 +208,13 @@ public class Product extends DbConnection{
         query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
         statement.execute(query);
         System.out.println("Product edited successfully !!!");
-         
-        Operation.getCommand();
     }
 
     public static void editWithAttributes(String code,String name,String unit,String type, String tempPrice) throws SQLException {
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(name.length()<3||name.length()>30){
             System.out.println(error+"\nTemplate mismatch ( name length should be within 3 to 30 characters )"+reset);
-            Operation.getCommand();
+            return;
         }
         boolean isUnitIsThere = false;
         for(int i = 0;i<unittypes.length;i++){
@@ -226,19 +225,20 @@ public class Product extends DbConnection{
         }
         if(!isUnitIsThere){
             System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units )"+reset);
-            Operation.getCommand();
+            return;
         }
 
-        float parsingPrice = 0;
+        float parsingPrice;
         try{
             parsingPrice = Float.parseFloat(tempPrice);
         }
         catch (Exception e){
             System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
+            return;
         }
         if(tempPrice.length()<1){
             System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
-            Operation.getCommand();
+            return;
         }
 
 //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
@@ -247,11 +247,11 @@ public class Product extends DbConnection{
         query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
         statement.execute(query);
         System.out.println(successful+"Product edited successfully !!!"+reset);
-         
-        Operation.getCommand();
+
+
     }
 
-    public static void listHelp() throws SQLException {
+    public static void listHelp() {
         System.out.println("""
                 \t\tList product with the following options
                 product list - will list all the products default to maximum upto 20 products
@@ -260,10 +260,10 @@ public class Product extends DbConnection{
                 product list -s searchtext - search the product with the given search text in all the searchable attributes
                 product list -s <attr>: searchtext - search the product with the given search text in all the given attribute
                 product list -s <attr>: searchtext -p 10 6 - pagable list shows 10 products in 6th page with the given search text in the given attribute""");
-        Operation.getCommand();
+
     }
 
-    public static void editHelp() throws SQLException {
+    public static void editHelp() {
         System.out.println("""
                 Edit product using following template. Copy the product data from the list, edit the attribute values.\s
                 id: <id - 6>, name: <name-edited>, unitcode: <unitcode>,  type: <type>, price: <price>
@@ -280,15 +280,15 @@ public class Product extends DbConnection{
                 unitcode - text, kg/l/piece/combo, mandatory
                 type - text, between enumerated values, mandatory
                 costprice - numeric, mandatory""");
-        Operation.getCommand();
+
     }
 
-    public static void deleteHelp() throws SQLException {
+    public static void deleteHelp() {
         System.out.println("""
                 delete product using the following template
                 productid - numeric, existing
                 product delete -c <code>""");
-        Operation.getCommand();
+
     }
 
     public static void count() throws SQLException {
@@ -300,8 +300,8 @@ public class Product extends DbConnection{
             count+=1;
         }
         System.out.println("Total count of the product : " + count);
-         
-        Operation.getCommand();
+
+
     }
 
     public static void edit() throws SQLException {
@@ -323,7 +323,7 @@ public class Product extends DbConnection{
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(name.length()<3||name.length()>30){
             System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters)"+reset);
-            Operation.getCommand();
+            return;
         }
         boolean isUnitIsThere = false;
         for (String unittype : unittypes) {
@@ -335,19 +335,20 @@ public class Product extends DbConnection{
         }
         if(!isUnitIsThere){
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units)"+reset);
-            Operation.getCommand();
+            return;
         }
 
-        float parsingPrice = 0;
+        float parsingPrice;
         try{
             parsingPrice = Float.parseFloat(price);
         }
         catch (Exception e){
             System.out.println(error+"\nTemplate mismatch ( The price should be numeric)"+reset);
+            return;
         }
         if(price.length()<1){
             System.out.println(error+"\nTemplate mismatch ( Price data cannot be null)"+reset);
-            Operation.getCommand();
+            return;
         }
         //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
         if(stock.isEmpty()){
@@ -359,8 +360,8 @@ public class Product extends DbConnection{
         }
 
         System.out.println(successful+"Product edited successfully"+reset);
-         
-        Operation.getCommand();
+
+
     }
 
     public static void delete(String code) throws SQLException {
@@ -382,8 +383,8 @@ public class Product extends DbConnection{
             }
 
         }
-         
-        Operation.getCommand();
+
+
     }
 
     public static void listWithAttributes(String attribute,String searchText) throws SQLException {
@@ -404,8 +405,8 @@ public class Product extends DbConnection{
             System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
         }
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-         
-        Operation.getCommand();
+
+
     }
 
     public static void listWithAttributesAndPaging(String attribute,String searchText,String limitItems,String page) throws SQLException {
@@ -444,7 +445,7 @@ public class Product extends DbConnection{
         if(isTableColumnEnabled==1){
             System.out.println(DbConnection.error+"WARNING : Requested page doesn't exist !"+DbConnection.reset);
         }
-        Operation.getCommand();
+
     }
 
     public static void listDefault() throws SQLException {
@@ -467,8 +468,8 @@ public class Product extends DbConnection{
             }
         }
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-         
-        Operation.getCommand();
+
+
     }
 
     public static void listDefaultWithListCount(String defaultItemCount) throws SQLException {
@@ -491,8 +492,8 @@ public class Product extends DbConnection{
             }
         }
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-         
-        Operation.getCommand();
+
+
     }
 
     public static void listDefaultWithListCountAndPageNo(String limitItems,String page) throws SQLException {
@@ -528,8 +529,8 @@ public class Product extends DbConnection{
         if(isTableColumnEnabled==0){
             System.out.println(DbConnection.error+"WARNING : Requested page doesn't exist !"+DbConnection.reset);
         }
-         
-        Operation.getCommand();
+
+
     }
 
     public static void globalSearchList(String keyword) throws SQLException {
@@ -708,7 +709,6 @@ public class Product extends DbConnection{
             }
 
         }
-         
-        Operation.getCommand();
+
     }
 }
