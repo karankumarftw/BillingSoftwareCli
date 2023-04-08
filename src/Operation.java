@@ -1,16 +1,6 @@
 import java.sql.SQLException;
 
 public class Operation {
-    static void getCommand() throws SQLException {
-        while(true){
-            System.out.print("> ");
-            String cmd = DbConnection.scanner.nextLine();
-            String[] cmdBySpace = cmd.toLowerCase().split(" ");
-            String[] cmdBySpaceAndComma = cmd.toLowerCase().split("[ ,]");
-            route(cmdBySpaceAndComma,cmdBySpace);
-        }
-
-    }
     static void route(String[] cmdBySpaceAndComma,String[] cmdBySpace) throws SQLException {
         int lengthOfCmdBySpace = cmdBySpace.length;
         if(lengthOfCmdBySpace<3){
@@ -91,9 +81,14 @@ public class Operation {
         else{
             System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
         }
-        getCommand();
         }
     public static void main(String[] args) throws SQLException {
-        getCommand();
+        while(true){
+            System.out.print("> ");
+            String cmd = DbConnection.scanner.nextLine();
+            String[] cmdBySpace = cmd.toLowerCase().split(" ");
+            String[] cmdBySpaceAndComma = cmd.toLowerCase().split("[ ,]");
+            route(cmdBySpaceAndComma,cmdBySpace);
+        }
     }
 }
