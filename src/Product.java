@@ -16,10 +16,11 @@ public class Product extends DbConnection{
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
-        for(int i = 0;i<unittypes.length;i++){
+        for (String unittype : unittypes) {
 
-            if(unittypes[i].equals(unit)){
+            if (unittype.equals(unit)) {
                 isUnitIsThere = true;
+                break;
             }
         }
         if(!isUnitIsThere){
@@ -62,10 +63,11 @@ public class Product extends DbConnection{
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
-        for(int i = 0;i<unittypes.length;i++){
+        for (String unittype : unittypes) {
 
-            if(unittypes[i].equals(unit)){
+            if (unittype.equals(unit)) {
                 isUnitIsThere = true;
+                break;
             }
         }
         if(!isUnitIsThere){
@@ -120,10 +122,11 @@ public class Product extends DbConnection{
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
-        for(int i = 0;i<unittypes.length;i++){
+        for (String unittype : unittypes) {
 
-            if(unittypes[i].equals(unit)){
+            if (unittype.equals(unit)) {
                 isUnitIsThere = true;
+                break;
             }
         }
         if(!isUnitIsThere){
@@ -323,10 +326,11 @@ public class Product extends DbConnection{
             Operation.getCommand();
         }
         boolean isUnitIsThere = false;
-        for(int i = 0;i<unittypes.length;i++){
+        for (String unittype : unittypes) {
 
-            if(unittypes[i].equals(unit)){
+            if (unittype.equals(unit)) {
                 isUnitIsThere = true;
+                break;
             }
         }
         if(!isUnitIsThere){
@@ -363,7 +367,7 @@ public class Product extends DbConnection{
         System.out.println("Are you sure want to delete the product ? y/n");
         String choice = scanner.nextLine();
         if(choice.equalsIgnoreCase("yes")|| choice.equalsIgnoreCase("y")) {
-            query = "select * from products where code = "+code+"";
+            query = "select * from products where code = "+code;
             resultSet = statement.executeQuery(query);
             int resultCount = 0;
             while(resultSet.next()){
@@ -545,7 +549,8 @@ public class Product extends DbConnection{
         final String tableTitle = String.format(title + "%20s", "CODE") + String.format("%20s", "NAME") + String.format("%20s", "UNIT") + String.format("%20s", "TYPE") + String.format("%20s", "PRICE") + String.format("%20s", "STOCK") + reset;
         try{
 
-            float parsingPrice = Float.parseFloat(keyword);
+            Float.parseFloat(keyword);
+            float parsingPrice;
 
             for(String columnName : tableColumnsHasNumericType){
 
