@@ -1,7 +1,9 @@
+package Core;
+
 import java.sql.*;
 import java.util.Scanner;
 
-public class DbConnection {
+public class DbConnectionScannerAndFormatting {
     public   static Connection connection;
     public   static Statement statement;
     public static ResultSet resultSet;

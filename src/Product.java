@@ -1,8 +1,8 @@
-
-
 import java.sql.SQLException;
 
-public class Product extends DbConnection{
+import static Core.DbConnectionScannerAndFormatting.*;
+
+public class Product{
     public static void createWithAttributes(String code,String name,String unit,String type, String price) throws SQLException {
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
@@ -443,7 +443,7 @@ public class Product extends DbConnection{
         }
 
         if(isTableColumnEnabled==1){
-            System.out.println(DbConnection.error+"WARNING : Requested page doesn't exist !"+DbConnection.reset);
+            System.out.println(error+"WARNING : Requested page doesn't exist !"+reset);
         }
 
     }
@@ -527,7 +527,7 @@ public class Product extends DbConnection{
 
         }
         if(isTableColumnEnabled==0){
-            System.out.println(DbConnection.error+"WARNING : Requested page doesn't exist !"+DbConnection.reset);
+            System.out.println(error+"WARNING : Requested page doesn't exist !"+reset);
         }
 
 

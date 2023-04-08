@@ -1,3 +1,5 @@
+import static Core.DbConnectionScannerAndFormatting.*;
+
 import java.sql.SQLException;
 
 public class Operation {
@@ -14,7 +16,7 @@ public class Operation {
                     }
                 }
                 catch (Exception e){
-                    System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
+                    System.out.println(error+"WARNING : Command not found !!!"+reset);
                 }
 
             }
@@ -71,21 +73,21 @@ public class Operation {
                     }
                 }
                 else {
-                    System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
+                    System.out.println(error+"WARNING : Command not found !!!"+reset);
                 }
             }
             else{
-                System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
+                System.out.println(error+"WARNING : Command not found !!!"+reset);
             }
         }
         else{
-            System.out.println(DbConnection.error+"WARNING : Command not found !!!"+DbConnection.reset);
+            System.out.println(error+"WARNING : Command not found !!!"+reset);
         }
         }
     public static void main(String[] args) throws SQLException {
         while(true){
             System.out.print("> ");
-            String cmd = DbConnection.scanner.nextLine();
+            String cmd = scanner.nextLine();
             String[] cmdBySpace = cmd.toLowerCase().split(" ");
             String[] cmdBySpaceAndComma = cmd.toLowerCase().split("[ ,]");
             route(cmdBySpaceAndComma,cmdBySpace);
