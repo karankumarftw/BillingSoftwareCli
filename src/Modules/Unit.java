@@ -44,7 +44,7 @@ public class Unit {
         ps.setString(3,unitDescription);
         ps.setBoolean(4,isDividable);
         ps.execute();
-        System.out.println("Unit inserted successfully");
+        System.out.println(successful+"Unit inserted successfully"+reset);
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
     }
     public static void unitCreateWithAttributes(String unitName, String unitCode , String unitDescription,String isDividableCheck) throws SQLException {
@@ -67,7 +67,7 @@ public class Unit {
         ps.setString(3,unitDescription);
         ps.setBoolean(4,isDividable);
         ps.execute();
-        System.out.println("Unit inserted successfully");
+        System.out.println(successful+"Unit inserted successfully"+reset);
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
 
     }
@@ -169,7 +169,7 @@ public class Unit {
         ps.setBoolean(3,isDividable);
         ps.setString(4, unitCode);
         ps.execute();
-        System.out.println("Unit edited successfully");
+        System.out.println(successful+"Unit edited successfully"+reset);
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
     }
     public static void unitEditWithAttributes(String unitName, String unitCode , String unitDescription,String isDividableCheck) throws SQLException {
@@ -190,7 +190,7 @@ public class Unit {
         ps.setBoolean(3,isDividable);
         ps.setString(4, unitCode);
         ps.execute();
-        System.out.println("Unit edited successfully");
+        System.out.println(successful+"Unit edited successfully"+reset);
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
     }
 }
