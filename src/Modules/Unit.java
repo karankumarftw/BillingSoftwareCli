@@ -1,7 +1,6 @@
 package Modules;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import static Core.DbConnectionScannerAndFormatting.*;
 public class Unit {
     public static void unitCreateHelp() {

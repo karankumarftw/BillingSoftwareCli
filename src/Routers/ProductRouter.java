@@ -1,11 +1,8 @@
 package Routers;
-
 import java.sql.SQLException;
-
 import static Core.DbConnectionScannerAndFormatting.error;
 import static Core.DbConnectionScannerAndFormatting.reset;
 import static Modules.Product.*;
-
 public class ProductRouter{
     public static void productRoute(String[] cmdBySpaceAndComma, String[] cmdBySpace) throws SQLException {
         int lengthOfCmdBySpace = cmdBySpace.length;
@@ -23,7 +20,6 @@ public class ProductRouter{
                 }
         }
         else {
-
                 if(cmdBySpace[2].equals("help")){
                     switch (cmdBySpace[1]) {
                         case "create" -> productCreateHelp();
@@ -48,7 +44,6 @@ public class ProductRouter{
                         productEditWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6]);
                     }
                 } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-s")) {
-
                     try{
                         productListWithAttributesAndPaging(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
                     }catch (Exception e){

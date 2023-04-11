@@ -1,9 +1,6 @@
 package Modules;
-
 import java.sql.SQLException;
-
 import static Core.DbConnectionScannerAndFormatting.*;
-
 public class Product{
     public static void productCreateWithAttributes(String code,String name,String unit,String type, String price) throws SQLException {
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
@@ -40,25 +37,8 @@ public class Product{
         else {
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
         }
-//        boolean isUnitIsThere = false;
-//        for (String unittype : unittypes) {
-//
-//            if (unittype.equals(unit)) {
-//                isUnitIsThere = true;
-//                break;
-//            }
-//        }
-//        if(!isUnitIsThere){
-//            System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units)"+reset);
-//            return;
-//        }
-
-
-
-
 
     }
-
     public static void productCreateWithAttributes(String code,String name,String unit,String type, String price,String stock) throws SQLException {
 
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
@@ -94,24 +74,7 @@ public class Product{
         else {
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
         }
-//        boolean isUnitIsThere = false;
-//        for (String unittype : unittypes) {
-//
-//            if (unittype.equals(unit)) {
-//                isUnitIsThere = true;
-//                break;
-//            }
-//        }
-//        if(!isUnitIsThere){
-//            System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units )"+reset);
-//            return;
-//        }
-
-
-
-
     }
-
     public static void productCreate() throws SQLException {
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
        //-------------------------GETTING INPUTS FOR PRODUCT CREATION ----------------------------------------------//
@@ -165,22 +128,7 @@ public class Product{
         else {
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
         }
-//        boolean isUnitIsThere = false;
-//        for (String unittype : unittypes) {
-//
-//            if (unittype.equals(unit)) {
-//                isUnitIsThere = true;
-//                break;
-//            }
-//        }
-//        if(!isUnitIsThere){
-//            System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre-defined units )"+reset);
-//            return;
-//        }
-
-
     }
-
     public static void productCreateHelp() {
         System.out.println(line+"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPRODUCT CREATION"+reset);
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
@@ -195,7 +143,6 @@ public class Product{
                 stock - number, default 0""");
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
     }
-
     public static void productEditWithAttributes(String code,String name,String unit,String type, String tempPrice,String tempStock) throws SQLException {
 //------------------------------------------- VALIDATION -----------------------------------------------------------------------------//
         if(code.length()<2||code.length()>7){
@@ -232,7 +179,6 @@ public class Product{
 
 
     }
-
     public static void productEditWithAttributes(String code,String name,String unit,String type, String tempPrice) throws SQLException {
         //-------------------------------------------VALIDATION-----------------------------------------------------------------------------//
         if(name.length()<3||name.length()>30){
@@ -271,7 +217,6 @@ public class Product{
 
 
     }
-
     public static void productListHelp() {
         System.out.println("""
                 \t\tList product with the following options
@@ -283,7 +228,6 @@ public class Product{
                 product list -s <attr>: searchtext -p 10 6 - pagable list shows 10 products in 6th page with the given search text in the given attribute""");
 
     }
-
     public static void productEditHelp() {
         System.out.println("""
                 Edit product using following template. Copy the product data from the list, edit the attribute values.\s
@@ -303,7 +247,6 @@ public class Product{
                 costprice - numeric, mandatory""");
 
     }
-
     public static void productDeleteHelp() {
         System.out.println("""
                 delete product using the following template
@@ -311,7 +254,6 @@ public class Product{
                 product delete -c <code>""");
 
     }
-
     public static void productCount() throws SQLException {
 
         query = "select * from products";
@@ -324,7 +266,6 @@ public class Product{
 
 
     }
-
     public static void productEdit() throws SQLException {
         System.out.println("Entered into product edit");
         System.out.print("code : ");
@@ -381,7 +322,6 @@ public class Product{
 
 
     }
-
     public static void productDelete(String code) throws SQLException {
         System.out.println("Are you sure want to delete the product ? y/n");
         String choice = scanner.nextLine();
@@ -404,7 +344,6 @@ public class Product{
 
 
     }
-
     public static void productListWithAttributes(String attribute,String searchText) throws SQLException {
         System.out.println("product list with "+searchText+"\nlist with attr");
         
@@ -425,7 +364,6 @@ public class Product{
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
 
     }
-
     public static void productListWithAttributesAndPaging(String attribute,String searchText,String limitItems,String page) throws SQLException {
         query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc";
         //product list -s type: chocolate -p 5 2
@@ -463,7 +401,6 @@ public class Product{
         }
 
     }
-
     public static void productListDefault() throws SQLException {
         query = "select * from products  order by code asc limit 20";
         resultSet = statement.executeQuery(query);
@@ -485,7 +422,6 @@ public class Product{
 
 
     }
-
     public static void productListDefaultWithListCount(String defaultItemCount) throws SQLException {
         query = "select * from products order by code asc limit "+defaultItemCount;
         resultSet = statement.executeQuery(query);
@@ -503,7 +439,6 @@ public class Product{
         }
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
     }
-
     public static void productListDefaultWithListCountAndPageNo(String limitItems,String page) throws SQLException {
         query = "select * from products order by code asc";
         resultSet = statement.executeQuery(query);
@@ -535,7 +470,6 @@ public class Product{
             System.out.println(error+"WARNING : Requested page doesn't exist !"+reset);
         }
     }
-
     public static void productGlobalSearchList(String keyword) throws SQLException {
         System.out.println("Did you searched for this ? "+keyword);
         String[] tableColumnsHasStringType = {"name","unit","type"};

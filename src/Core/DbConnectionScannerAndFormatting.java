@@ -1,8 +1,6 @@
 package Core;
-
 import java.sql.*;
 import java.util.Scanner;
-
 public class DbConnectionScannerAndFormatting {
     public   static Connection connection;
     public   static Statement statement;
@@ -29,6 +27,4 @@ public class DbConnectionScannerAndFormatting {
     public static final String title = "\u001B[34m";
     public static final String reset = "\u001B[0m";
     public static final String line = "\u001B[36m";
-
-
 }

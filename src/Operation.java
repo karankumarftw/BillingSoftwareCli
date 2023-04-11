@@ -1,9 +1,7 @@
 import java.sql.SQLException;
-
 import static Core.DbConnectionScannerAndFormatting.*;
 import static Routers.ProductRouter.productRoute;
 import static Routers.UnitRouter.unitRouter;
-
 public class Operation {
     public static void main(String[] args) throws SQLException {
         while(true){
@@ -18,7 +16,6 @@ public class Operation {
                     System.out.println("GoodBye");System.exit(1);}
                 default -> System.out.println(error+"WARNING : Command not found !!!"+reset);
             }
-
         }
     }
 }
