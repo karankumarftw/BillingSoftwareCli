@@ -1,9 +1,10 @@
 package Routers;
-import Modules.Product;
+
 import java.sql.SQLException;
 
 import static Core.DbConnectionScannerAndFormatting.error;
 import static Core.DbConnectionScannerAndFormatting.reset;
+import static Modules.Product.*;
 
 public class ProductRouter{
     public static void productRoute(String[] cmdBySpaceAndComma, String[] cmdBySpace) throws SQLException {
@@ -11,10 +12,10 @@ public class ProductRouter{
         if(lengthOfCmdBySpace<3){
                 try{
                     switch (cmdBySpace[1]) {
-                        case "create" -> Product.create();
-                        case "count" -> Product.count();
-                        case "edit" -> Product.edit();
-                        case "list" -> Product.listDefault();
+                        case "create" -> productCreate();
+                        case "count" -> productCount();
+                        case "edit" -> productEdit();
+                        case "list" -> productListDefault();
                     }
                 }
                 catch (Exception e){
@@ -25,38 +26,38 @@ public class ProductRouter{
 
                 if(cmdBySpace[2].equals("help")){
                     switch (cmdBySpace[1]) {
-                        case "create" -> Product.productCreateHelp();
-                        case "list" -> Product.listHelp();
-                        case "edit" -> Product.editHelp();
-                        case "delete" -> Product.deleteHelp();
+                        case "create" -> productCreateHelp();
+                        case "list" -> productListHelp();
+                        case "edit" -> productEditHelp();
+                        case "delete" -> productDeleteHelp();
                     }
                 } else if (cmdBySpaceAndComma[1].equals("create")) {
                     try{
-                        Product.createWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
+                        productCreateWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
                     }catch (Exception e){
-                        Product.createWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6]);
+                        productCreateWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6]);
                     }
                 }
                 else if (cmdBySpaceAndComma[1].equals("delete")) {
-                    Product.delete(cmdBySpaceAndComma[2]);
+                    productDelete(cmdBySpaceAndComma[2]);
                 } else if (cmdBySpaceAndComma[1].equals("edit")) {
                     try{
-                        Product.editWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
+                        productEditWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
                     }
                     catch (Exception e){
-                        Product.editWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6]);
+                        productEditWithAttributes(cmdBySpaceAndComma[2], cmdBySpaceAndComma[3], cmdBySpaceAndComma[4], cmdBySpaceAndComma[5], cmdBySpaceAndComma[6]);
                     }
                 } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-s")) {
 
                     try{
-                        Product.listWithAttributesAndPaging(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
+                        productListWithAttributesAndPaging(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4],cmdBySpaceAndComma[6],cmdBySpaceAndComma[7]);
                     }catch (Exception e){
                         try{
-                            Product.listWithAttributes(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
+                            productListWithAttributes(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
                         }
                         catch (Exception err){
                             try{
-                                Product.globalSearchList(cmdBySpaceAndComma[3]);
+                                productGlobalSearchList(cmdBySpaceAndComma[3]);
                             }
                             catch (Exception error){
                                 System.out.println("Something went wrong");
@@ -65,10 +66,10 @@ public class ProductRouter{
                     }
                 } else if (cmdBySpaceAndComma[1].equals("list")&& cmdBySpaceAndComma[2].equals("-p")) {
                     try{
-                        Product.listDefaultWithListCountAndPageNo(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
+                        productListDefaultWithListCountAndPageNo(cmdBySpaceAndComma[3],cmdBySpaceAndComma[4]);
                     }
                     catch (Exception e){
-                        Product.listDefaultWithListCount(cmdBySpaceAndComma[3]);
+                        productListDefaultWithListCount(cmdBySpaceAndComma[3]);
                     }
                 }
                 else {

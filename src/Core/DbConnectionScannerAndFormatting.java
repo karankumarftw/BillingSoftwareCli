@@ -24,7 +24,6 @@ public class DbConnectionScannerAndFormatting {
     }
     public static String query;
     public static Scanner scanner = new Scanner(System.in);
-    public static String[] unittypes = {"kg","l","packet","piece"};
     public static final String error = "\u001B[31m";
     public static final String successful = "\u001B[32m";
     public static final String title = "\u001B[34m";
