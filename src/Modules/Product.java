@@ -202,37 +202,35 @@ public class Product{
             System.out.println(error+" \nTemplate mismatch ( code length should be within 2 to 6 characters )"+reset);
             return;
         }
-        boolean isUnitIsThere = false;
-        for(int i = 0;i<unittypes.length;i++){
-            System.out.println(i);
-            if(unittypes[i].equals(unit)){
-                isUnitIsThere = true;
+        query = "select * from unit where unit_name ='"+unit+"' ";
+        resultSet = statement.executeQuery(query);
+        if(resultSet.next()){
+            float parsingPrice;
+            try{
+                parsingPrice = Float.parseFloat(tempPrice);
             }
+            catch (Exception e){
+                System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
+                return;
+            }
+            if(tempPrice.length()<1){
+                System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
+                return;
+            }
+
+
+
+            float stock = Float.parseFloat(tempStock);
+            //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
+            query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
+            statement.execute(query);
+            System.out.println("Product edited successfully !!!");
         }
-        if(!isUnitIsThere){
+        else{
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
-            return;
-        }
-        float parsingPrice;
-        try{
-            parsingPrice = Float.parseFloat(tempPrice);
-        }
-        catch (Exception e){
-            System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
-            return;
-        }
-        if(tempPrice.length()<1){
-            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
-            return;
         }
 
 
-
-        float stock = Float.parseFloat(tempStock);
-        //------------------------------------------- VALIDATION ENDS -----------------------------------------------------------------------------//
-        query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
-        statement.execute(query);
-        System.out.println("Modules.Product edited successfully !!!");
     }
 
     public static void productEditWithAttributes(String code,String name,String unit,String type, String tempPrice) throws SQLException {
@@ -241,37 +239,35 @@ public class Product{
             System.out.println(error+"\nTemplate mismatch ( name length should be within 3 to 30 characters )"+reset);
             return;
         }
-        boolean isUnitIsThere = false;
-        for(int i = 0;i<unittypes.length;i++){
-            System.out.println(i);
-            if(unittypes[i].equals(unit)){
-                isUnitIsThere = true;
+        query = "select * from unit where unit_name ='"+unit+"' ";
+        resultSet = statement.executeQuery(query);
+        if(resultSet.next()){
+            float parsingPrice;
+            try{
+                parsingPrice = Float.parseFloat(tempPrice);
             }
-        }
-        if(!isUnitIsThere){
-            System.out.println(error+"\nTemplate mismatch ( The Unit value is not matching as per pre defined units )"+reset);
-            return;
-        }
-
-        float parsingPrice;
-        try{
-            parsingPrice = Float.parseFloat(tempPrice);
-        }
-        catch (Exception e){
-            System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
-            return;
-        }
-        if(tempPrice.length()<1){
-            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
-            return;
-        }
+            catch (Exception e){
+                System.out.println(error+"\nTemplate mismatch ( The price should be numeric )"+reset);
+                return;
+            }
+            if(tempPrice.length()<1){
+                System.out.println(error+"\nTemplate mismatch ( Price data cannot be null )"+reset);
+                return;
+            }
 
 //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
 
 
-        query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
-        statement.execute(query);
-        System.out.println(successful+"Modules.Product edited successfully !!!"+reset);
+            query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
+            statement.execute(query);
+            System.out.println(successful+"Product edited successfully !!!"+reset);
+        }
+        else{
+            System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
+        }
+
+
+
 
 
     }
@@ -350,41 +346,38 @@ public class Product{
             System.out.println(error+"\nTemplate mismatch ( Name length should be within 3 to 30 characters)"+reset);
             return;
         }
-        boolean isUnitIsThere = false;
-        for (String unittype : unittypes) {
-
-            if (unittype.equals(unit)) {
-                isUnitIsThere = true;
-                break;
+        query = "select * from unit where unit_name ='"+unit+"' ";
+        resultSet = statement.executeQuery(query);
+        if(resultSet.next()){
+            float parsingPrice;
+            try{
+                parsingPrice = Float.parseFloat(price);
             }
+            catch (Exception e){
+                System.out.println(error+"\nTemplate mismatch ( The price should be numeric)"+reset);
+                return;
+            }
+            if(price.length()<1){
+                System.out.println(error+"\nTemplate mismatch ( Price data cannot be null)"+reset);
+                return;
+            }
+            //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
+            if(stock.isEmpty()){
+                query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
+                statement.execute(query);
+            }else{
+                query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
+                statement.execute(query);
+            }
+
+            System.out.println(successful+"Product edited successfully"+reset);
+
         }
-        if(!isUnitIsThere){
-            System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units)"+reset);
-            return;
+        else{
+            System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
         }
 
-        float parsingPrice;
-        try{
-            parsingPrice = Float.parseFloat(price);
-        }
-        catch (Exception e){
-            System.out.println(error+"\nTemplate mismatch ( The price should be numeric)"+reset);
-            return;
-        }
-        if(price.length()<1){
-            System.out.println(error+"\nTemplate mismatch ( Price data cannot be null)"+reset);
-            return;
-        }
-        //-------------------------------------------VALIDATION ENDS-----------------------------------------------------------------------------//
-        if(stock.isEmpty()){
-            query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+parsingPrice+" where code = "+code+" and ( code = "+code+")";
-            statement.execute(query);
-        }else{
-            query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
-            statement.execute(query);
-        }
 
-        System.out.println(successful+"Modules.Product edited successfully"+reset);
 
 
     }

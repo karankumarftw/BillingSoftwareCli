@@ -22,7 +22,7 @@ public class ProductRouter{
                     System.out.println(error+"WARNING : Command not found !!!"+reset);
                 }
         }
-        else if(lengthOfCmdBySpace>2){
+        else {
 
                 if(cmdBySpace[2].equals("help")){
                     switch (cmdBySpace[1]) {
@@ -75,9 +75,6 @@ public class ProductRouter{
                 else {
                     System.out.println(error+"WARNING : Command not found !!!"+reset);
                 }
-        }
-        else{
-            System.out.println(error+"WARNING : Command not found !!!"+reset);
         }
     }
 }

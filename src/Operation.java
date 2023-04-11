@@ -1,9 +1,8 @@
-import Routers.UnitRouter;
+import java.sql.SQLException;
 
 import static Core.DbConnectionScannerAndFormatting.*;
 import static Routers.ProductRouter.productRoute;
 import static Routers.UnitRouter.unitRouter;
-import java.sql.SQLException;
 
 public class Operation {
     public static void main(String[] args) throws SQLException {
@@ -15,6 +14,8 @@ public class Operation {
             switch (cmdBySpace[0]){
                 case "product" -> productRoute(cmdBySpaceAndComma,cmdBySpace);
                 case "unit"-> unitRouter(cmdBySpaceAndComma,cmdBySpace);
+                case "quit" -> {
+                    System.out.println("GoodBye");System.exit(1);}
                 default -> System.out.println(error+"WARNING : Command not found !!!"+reset);
             }
 
