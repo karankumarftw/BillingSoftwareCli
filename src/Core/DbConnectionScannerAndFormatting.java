@@ -11,7 +11,7 @@ public class DbConnectionScannerAndFormatting {
         try {
             String url = "jdbc:postgresql://floppy.db.elephantsql.com/wfnutumw";
             String database= "wfnutumw";
-            String password = "lA0jRiDGKCozUBNZyrvCKr76BpP3HM8Q";
+            String password = "us_9Vx_x6JpwY19OXqMPYJh1r3nTs_El";
             connection = DriverManager.getConnection(url, database, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
