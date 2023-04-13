@@ -7,13 +7,14 @@ public class Operation {
         while(true){
             System.out.print("> ");
             String cmd = scanner.nextLine();
+
             String[] cmdBySpace = cmd.toLowerCase().split(" ");
             String[] cmdBySpaceAndComma = cmd.toLowerCase().split("[ ,]");
             switch (cmdBySpace[0]){
                 case "product" -> productRoute(cmdBySpaceAndComma,cmdBySpace);
                 case "unit"-> unitRouter(cmdBySpaceAndComma,cmdBySpace);
                 case "quit" -> {
-                    System.out.println("GoodBye");System.exit(1);}
+                    System.out.println("tHaNkYoU");System.exit(1);}
                 default -> System.out.println(error+"WARNING : Command not found !!!"+reset);
             }
         }

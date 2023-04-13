@@ -310,17 +310,12 @@ public class Product{
                 query = "update products set name = '"+name+"', unit = '"+unit+"', type = '"+type+"', price = "+price+", stock = "+stock+" where code = "+code+" and ( code = "+code+")";
                 statement.execute(query);
             }
-
             System.out.println(successful+"Product edited successfully"+reset);
 
         }
         else{
             System.out.println(error+"Template mismatch ( The Unit value is not matching as per pre defined units )"+reset);
         }
-
-
-
-
     }
     public static void productDelete(String code) throws SQLException {
         System.out.println("Are you sure want to delete the product ? y/n");
@@ -365,38 +360,30 @@ public class Product{
 
     }
     public static void productListWithAttributesAndPaging(String attribute,String searchText,String limitItems,String page) throws SQLException {
-        query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc";
-        //product list -s type: chocolate -p 5 2
+        int offset ;
+        if (page == "1"){
+            offset = 0;
+        }else{
+            offset = (Integer.parseInt(page)-1) * Integer.parseInt(limitItems);
+        }
+        query = "select * from products where "+attribute+" = '"+searchText+"' order by code asc offset "+offset+"  limit "+limitItems;
+        //product list -s type packet -p 5 2
         resultSet = statement.executeQuery(query);
-        int pageLimit = Integer.parseInt(limitItems);
-        int pageNo = Integer.parseInt(page);
-        int tempEndItemNo = pageLimit*pageNo;
-        int tempInitialItemNo = tempEndItemNo-pageLimit;
-        int isTableColumnEnabled = 0;
-        int tempItemsCount = 1;
-
-        while(resultSet.next()){
-            tempItemsCount +=1;
-            String code =resultSet.getString("code");
-            String name = resultSet.getString("name");
-            String unit = resultSet.getString("unit");
-            String type = resultSet.getString("type");
-            String price = resultSet.getString("price");
-            String stock = resultSet.getString("stock");
-
-            if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
-                isTableColumnEnabled +=1;
-                if(isTableColumnEnabled==1){
-                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                    System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
-                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                }
+        if(resultSet.next()){
+            System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+            System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+            System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+            while(resultSet.next()){
+                String code =resultSet.getString("code");
+                String name = resultSet.getString("name");
+                String unit = resultSet.getString("unit");
+                String type = resultSet.getString("type");
+                String price = resultSet.getString("price");
+                String stock = resultSet.getString("stock");
                 System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
             }
-
         }
-
-        if(isTableColumnEnabled==0){
+        else{
             System.out.println(error+"WARNING : Requested page doesn't exist !"+reset);
         }
 
@@ -405,9 +392,7 @@ public class Product{
         query = "select * from products  order by code asc limit 20";
         resultSet = statement.executeQuery(query);
 
-        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-        System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
-        System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+
         while(resultSet.next()){
                 String code =resultSet.getString("code");
                 String name = resultSet.getString("name");
@@ -440,38 +425,37 @@ public class Product{
         System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
     }
     public static void productListDefaultWithListCountAndPageNo(String limitItems,String page) throws SQLException {
-        query = "select * from products order by code asc";
+        int offset ;
+        if (page == "1"){
+            offset = 0;
+        }else{
+            offset = (Integer.parseInt(page)-1) * Integer.parseInt(limitItems);
+        }
+        query = "select * from products order by code asc offset "+offset+"  limit "+limitItems;
         resultSet = statement.executeQuery(query);
-        int pageLimit = Integer.parseInt(limitItems);
-        int pageNo = Integer.parseInt(page);
-        int tempEndItemNo = pageLimit*pageNo;
-        int tempInitialItemNo = tempEndItemNo-pageLimit;
-        int tempItemsCount = 1;
-        int isTableColumnEnabled = 0;
-        while(resultSet.next()){
-            tempItemsCount +=1;
-            String code =resultSet.getString("code");
-            String name = resultSet.getString("name");
-            String unit = resultSet.getString("unit");
-            String type = resultSet.getString("type");
-            String price = resultSet.getString("price");
-            String stock = resultSet.getString("stock");
-            if(tempItemsCount>tempInitialItemNo+1 && tempItemsCount<=tempEndItemNo+1 ){
-                isTableColumnEnabled +=1;
-                if(isTableColumnEnabled==1){
-                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                    System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
-                    System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
-                }
-                System.out.println(String.format("%20s",code)+String.format("%20s",name)+String.format("%20s",unit)+String.format("%20s",type)+String.format("%20s",price)+String.format("%20s",stock));
+        if(resultSet.next()){
+            query = "select * from products order by code asc offset "+offset+"  limit "+limitItems;
+            resultSet = statement.executeQuery(query);
+            System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+            System.out.println(String.format(title+"%20s","CODE")+String.format("%20s","NAME")+String.format("%20s","UNIT")+String.format("%20s","TYPE")+String.format("%20s","PRICE")+String.format("%20s","STOCK")+reset);
+            System.out.println(line+"-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"+reset);
+            while(resultSet.next()) {
+                String code = resultSet.getString("code");
+                String name = resultSet.getString("name");
+                String unit = resultSet.getString("unit");
+                String type = resultSet.getString("type");
+                String price = resultSet.getString("price");
+                String stock = resultSet.getString("stock");
+                System.out.println(String.format("%20s", code) + String.format("%20s", name) + String.format("%20s", unit) + String.format("%20s", type) + String.format("%20s", price) + String.format("%20s", stock));
             }
         }
-        if(isTableColumnEnabled==0){
+        else {
             System.out.println(error+"WARNING : Requested page doesn't exist !"+reset);
         }
+
     }
     public static void productGlobalSearchList(String keyword) throws SQLException {
-        System.out.println("Did you searched for this ? "+keyword);
+        //System.out.println("Did you searched for this ? "+keyword);
         String[] tableColumnsHasStringType = {"name","unit","type"};
         String[] tableColumnsHasNumericType = {"code","price","stock"};
         int tempCode = 0;
@@ -500,12 +484,9 @@ public class Product{
                     }
                 }
             }
-            System.out.println("Found "+tempCode+" in code column");
-            System.out.println("Found "+tempName+" in name column");
-            System.out.println("Found "+tempUnit+" in unit column");
-            System.out.println("Found "+tempType+" in type column");
-            System.out.println("Found "+tempPrice+" in price column");
-            System.out.println("Found "+tempStock+" in stock column");
+            System.out.println("\nFound "+tempCode+" in code column"+"\nFound "+tempName+" in name column"+"\nFound "+tempUnit+" in unit column"+
+                    "\nFound "+tempType+" in type column"+"\nFound "+tempPrice+" in price column"
+            +"\nFound "+tempStock+" in stock column");
             if(tempCode>0){
                 System.out.println(line+"Results in : code "+reset);
                 query = "select * from products where code = '"+keyword+"' order by code asc";
@@ -642,6 +623,5 @@ public class Product{
             }
 
         }
-
     }
 }
